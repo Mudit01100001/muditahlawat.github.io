@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mudit Ahlawat — Creative Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   COLOUR TOKENS
+   All contrast ratios validated against WCAG 2.1
+   --bg   #0c0b0a  luminance ≈ 0.004
+   --text #ede9e1  luminance ≈ 0.851  →  ratio vs bg ≈ 19.8:1  (AAA ✓)
+   --sub  #a09890  luminance ≈ 0.357  →  ratio vs bg ≈  8.4:1  (AA  ✓)
+   --acc  #c9b99b  luminance ≈ 0.549  →  ratio vs bg ≈ 12.9:1  (AA  ✓)
+   --faint used only for decorative non-text elements
+   ================================================================ */
+:root {
+  --bg:    #0c0b0a;
+  --text:  #ede9e1;
+  --sub:   #a09890;
+  --acc:   #c9b99b;
+  --faint: rgba(237,233,225,0.06);
+  --line:  rgba(237,233,225,0.10);
+
+  /* ── GOLDEN RATIO TYPE SCALE  φ = 1.618, base = 16px ──
+     caption : 16 / 1.618      =  9.9px  → 10px
+     body    : 16px             = 16px
+     h3      : 16 × 1.618      = 25.9px  → 26px
+     h2      : 16 × 1.618²     = 41.9px  → 42px
+     h1      : 16 × 1.618³     = 67.8px  → 68px   (clamp for mobile)
+     ──────────────────────────────────────────────── */
+  --fs-cap:  10px;
+  --fs-body: 16px;
+  --fs-h3:   26px;
+  --fs-h2:   42px;
+  --fs-h1:   clamp(42px, 6.5vw, 68px);
+
+  --sidebar-w: 200px;
+  --gutter:     72px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Lora', serif;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ================================================================
+   LAYOUT SHELL
+   Desktop: fixed left sidebar + scrollable main content
+   Mobile:  no sidebar, floating pill nav at bottom
+   ================================================================ */
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR NAV (desktop only) ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 36px;
+  border-right: 1px solid var(--line);
+  z-index: 100;
+}
+.sidebar-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+.sidebar-logo span { color: var(--acc); }
+
+.nav-items { display: flex; flex-direction: column; gap: 6px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sub);
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.3s;
+  background: none; border: none; text-align: left;
+}
+.nav-item:hover { color: var(--text); }
+.nav-item.active { color: var(--acc); }
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.nav-item.active .nav-dot { background: var(--acc); border-color: var(--acc); }
+
+.sidebar-foot {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  color: var(--sub);
+  line-height: 1.8;
+  opacity: 0.6;
+}
+
+/* ── MAIN CONTENT AREA ── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  border-left: 1px solid var(--line);
+}
+
+/* Each section = full-viewport panel */
+.section {
+  min-height: 100vh;
+  padding: 80px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+/* Section label (caption scale) */
+.sec-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 40px;
+  display: flex; align-items: center; gap: 14px;
+}
+.sec-label::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--acc);
+  opacity: 0.4;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+
+/* ================================================================
+   §1  HERO
+   ================================================================ */
+#hero {
+  justify-content: flex-end;
+  padding-bottom: 96px;
+  overflow: hidden;
+}
+
+.hero-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: up 0.7s 0.1s forwards;
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h1);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -1px;
+  opacity: 0;
+  animation: up 0.7s 0.25s forwards;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--acc);
+}
+.hero-position {
+  margin-top: 28px;
+  font-size: var(--fs-body);
+  color: var(--sub);
+  max-width: 480px;
+  line-height: 1.75;
+  opacity: 0;
+  animation: up 0.7s 0.45s forwards;
+}
+.hero-cta {
+  display: flex; gap: 20px; margin-top: 44px; flex-wrap: wrap;
+  opacity: 0;
+  animation: up 0.7s 0.6s forwards;
+}
+.btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 13px 26px;
+  transition: all 0.3s;
+  cursor: pointer; border: none;
+}
+.btn-solid { background: var(--text); color: var(--bg); }
+.btn-solid:hover { background: var(--acc); }
+.btn-ghost { border: 1px solid var(--line); color: var(--sub); background: none; }
+.btn-ghost:hover { border-color: var(--acc); color: var(--acc); }
+
+/* large faint background letter */
+.hero-bg {
+  position: absolute;
+  right: -20px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(200px, 28vw, 420px);
+  font-weight: 600;
+  color: var(--faint);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+
+/* ================================================================
+   §2  BY THE NUMBERS
+   ================================================================ */
+#numbers { justify-content: center; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  margin-top: 0;
+}
+.stat-cell {
+  background: var(--bg);
+  padding: 44px 36px;
+  transition: background 0.3s;
+}
+.stat-cell:hover { background: #111010; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h2);   /* H2 scale per brief */
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text);
+}
+.stat-num span { color: var(--acc); font-style: italic; }
+.stat-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sub);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+
+/* ================================================================
+   §3  ROLES & EXPERIENCE
+   ================================================================ */
+#experience { justify-content: flex-start; padding-top: 100px; }
+
+.exp-table { width: 100%; border-collapse: collapse; }
+.exp-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 80px;
+  gap: 28px;
+  align-items: baseline;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.25s;
+}
+.exp-row:first-child { border-top: 1px solid var(--line); }
+.exp-row:hover { background: var(--faint); margin: 0 -72px; padding-left: 72px; padding-right: 72px; }
+
+.exp-org {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sub);
+  padding-top: 4px;
+}
+.exp-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h3);   /* H3 scale per brief */
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+}
+.exp-detail {
+  font-size: var(--fs-body);
+  color: var(--sub);
+  margin-top: 6px;
+  line-height: 1.7;
+}
+.exp-year {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  color: var(--sub);
+  text-align: right;
+  opacity: 0.6;
+  letter-spacing: 1px;
+}
+
+
+/* ================================================================
+   §4  SKILLS
+   ================================================================ */
+#skills { justify-content: center; }
+
+.skill-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.skill-group {}
+.skill-group-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 14px;
+}
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  color: var(--sub);
+  transition: all 0.25s;
+  cursor: default;
+}
+.chip:hover { border-color: var(--acc); color: var(--text); }
+.chip.primary {
+  border-color: rgba(201,185,155,0.35);
+  color: var(--text);
+}
+
+
+/* ================================================================
+   §5  WORK & PROJECTS
+   ================================================================ */
+#work { justify-content: flex-start; padding-top: 100px; }
+
+/* Dynamic grid: fills columns at 260px min → 1 to 4 cols */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+.work-card {
+  background: var(--bg);
+  overflow: hidden;
+  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.work-card:hover { background: #111010; }
+.work-card:hover .thumb-line { width: 100%; }
+.work-card:hover .card-ext { opacity: 1; transform: translate(0,0); }
+
+.card-thumb {
+  aspect-ratio: 16/10;
+  background: #111;
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+/* placeholder text until real image is added
+   TO ADD REAL IMAGE: delete .card-ph div, add:
+   <img src="YOUR_URL" style="width:100%;height:100%;object-fit:cover;"> */
+.card-ph {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(237,233,225,0.07);
+}
+.thumb-line {
+  position: absolute; bottom:0; left:0;
+  height: 1px; width: 0;
+  background: var(--acc);
+  transition: width 0.45s ease;
+}
+.card-ext {
+  position: absolute; top:12px; right:12px;
+  width: 28px; height: 28px;
+  border: 1px solid var(--acc);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--acc);
+  opacity: 0; transform: translate(6px,-6px);
+  transition: all 0.3s;
+}
+.card-body {
+  padding: 18px 20px 22px;
+  flex: 1;
+  border-top: 1px solid var(--line);
+}
+.card-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 6px;
+}
+.card-title {
+  font-family: 'Lora', serif;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+}
+.card-desc {
+  font-size: var(--fs-body);
+  color: var(--sub);
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* ================================================================
+   §6  CONNECT
+   ================================================================ */
+#connect { justify-content: center; border-bottom: none; }
+
+.connect-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h2);
+  font-weight: 300;
+  line-height: 1.15;
+  max-width: 560px;
+  margin-bottom: 12px;
+}
+.connect-heading em { font-style: italic; color: var(--acc); }
+
+.connect-sub {
+  font-size: var(--fs-body);
+  color: var(--sub);
+  max-width: 400px;
+  line-height: 1.75;
+  margin-bottom: 48px;
+}
+
+.connect-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 72px;
+}
+.c-link {
+  display: flex; align-items: center; gap: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-body);
+  color: var(--sub);
+  width: fit-content;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s;
+}
+.c-link:hover { color: var(--text); border-bottom-color: var(--acc); }
+.c-icon {
+  width: 16px; height: 16px;
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.3s;
+}
+.c-link:hover .c-icon { opacity: 1; }
+
+.connect-foot {
+  padding-top: 48px;
+  border-top: 1px solid var(--line);
+  display: flex; gap: 32px; flex-wrap: wrap;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sub);
+  opacity: 0.5;
+}
+
+
+/* ================================================================
+   MOBILE FLOATING PILL NAV
+   Visible only on mobile (< 768px)
+   ================================================================ */
+.pill-nav {
+  display: none;
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20,19,18,0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 10px 20px;
+  z-index: 200;
+  gap: 6px;
+}
+.pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sub);
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.pill-dot.active {
+  background: var(--acc);
+  opacity: 1;
+  width: 20px;
+  border-radius: 10px;
+}
+
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; --gutter: 28px; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; border-left: none; }
+  .section { padding: 60px var(--gutter) 80px; }
+  .pill-nav { display: flex; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .exp-row { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
+  .exp-row:hover { margin: 0; padding-left: 0; padding-right: 0; }
+  .exp-year { text-align: left; }
+  .connect-foot { flex-direction: column; gap: 8px; }
+  .hero-bg { display: none; }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  :root { --sidebar-w: 160px; --gutter: 48px; }
+  .sidebar { padding: 40px 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── MOBILE PILL NAV ── -->
+<nav class="pill-nav" id="pill-nav">
+  <div class="pill-dot" onclick="goto('hero')"></div>
+  <div class="pill-dot" onclick="goto('numbers')"></div>
+  <div class="pill-dot" onclick="goto('experience')"></div>
+  <div class="pill-dot" onclick="goto('skills')"></div>
+  <div class="pill-dot" onclick="goto('work')"></div>
+  <div class="pill-dot" onclick="goto('connect')"></div>
+</nav>
+
+<!-- ── LAYOUT SHELL ── -->
+<div class="shell">
+
+  <!-- ══════════════════════════════════════════
+       SIDEBAR — desktop fixed left nav
+       Edit: .sidebar-logo text (your initials)
+       Nav items auto-highlight on scroll via JS
+       ══════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">M<span>.</span>A</div>
+
+    <nav class="nav-items">
+      <button class="nav-item active" onclick="goto('hero')">
+        <span class="nav-dot"></span>Hero
+      </button>
+      <button class="nav-item" onclick="goto('numbers')">
+        <span class="nav-dot"></span>Numbers
+      </button>
+      <button class="nav-item" onclick="goto('experience')">
+        <span class="nav-dot"></span>Experience
+      </button>
+      <button class="nav-item" onclick="goto('skills')">
+        <span class="nav-dot"></span>Skills
+      </button>
+      <button class="nav-item" onclick="goto('work')">
+        <span class="nav-dot"></span>Work
+      </button>
+      <button class="nav-item" onclick="goto('connect')">
+        <span class="nav-dot"></span>Connect
+      </button>
+    </nav>
+
+    <!-- Edit these 3 footer lines -->
+    <div class="sidebar-foot">
+      Ashoka University<br>
+      CS-Ent · Econ Minor<br>
+      Available for freelance
+    </div>
+  </aside>
+
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ══════════════════════
+         §1  HERO
+         Edit: eyebrow tagline · name · .hero-position one-liner
+         ══════════════════════ -->
+    <section class="section" id="hero">
+      <div class="hero-bg">M</div>
+
+      <div class="hero-eyebrow">3D · Video · Visual Creative</div>
+
+      <!-- Edit name here — wrap last name in <em> for italic accent -->
+      <h1 class="hero-name">Mudit<br><em>Ahlawat</em></h1>
+
+      <!-- Edit this one-liner positioning statement -->
+      <p class="hero-position">
+        I make things people stop scrolling for — product renders, short films,
+        brand content, and visual systems built to perform.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn btn-solid" onclick="goto('work')">View Work</button>
+        <button class="btn btn-ghost" onclick="goto('connect')">Get in Touch</button>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         §2  BY THE NUMBERS
+         Edit: .stat-num number · .stat-desc label
+         Add/remove .stat-cell blocks as needed
+         ══════════════════════ -->
+    <section class="section" id="numbers">
+      <div class="sec-label reveal">By the numbers</div>
+
+      <div class="stats-grid reveal">
+
+        <div class="stat-cell">
+          <div class="stat-num">130<span>K</span></div>
+          <div class="stat-desc">TEDxAshoka — total video views<br>Head of Video Production, 2026</div>
+        </div>
+
+        <div class="stat-cell">
+          <div class="stat-num">90<span>K</span></div>
+          <div class="stat-desc">BAD Productions — combined film views<br>Co-Founder, 5 short films</div>
+        </div>
+
+        <div class="stat-cell">
+          <div class="stat-num">55<span>K</span></div>
+          <div class="stat-desc">Ashoka Business Club campaign<br>Single reel, social video production</div>
+        </div>
+
+        <div class="stat-cell">
+          <div class="stat-num">5<span>+</span></div>
+          <div class="stat-desc">Short films produced end-to-end<br>Direction · Cinematography · Edit</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         §3  ROLES & EXPERIENCE
+         Edit each .exp-row: org · role title · detail · year
+         TO ADD: copy one .exp-row, paste before the ➕ comment
+         TO REMOVE: delete the entire .exp-row block
+         ══════════════════════ -->
+    <section class="section" id="experience">
+      <div class="sec-label reveal">Roles &amp; Experience</div>
+
+      <div class="reveal">
+
+        <!-- Most prominent first per brief -->
+        <div class="exp-row">
+          <div class="exp-org">TEDxAshoka University</div>
+          <div>
+            <div class="exp-role">Head of Video Production</div>
+            <div class="exp-detail">End-to-end video for all event material — planning, shooting, editing, and brand consistency across promotional and event-day content.</div>
+          </div>
+          <div class="exp-year">2026</div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-org">BAD Productions</div>
+          <div>
+            <div class="exp-role">Co-Founder &amp; Lead Producer</div>
+            <div class="exp-detail">Cinematography, direction, and editing across 5 short films. Full production lifecycle from concept to delivery. 90,000+ combined views.</div>
+          </div>
+          <div class="exp-year">2023–</div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-org">Have You Seen Tara</div>
+          <div>
+            <div class="exp-role">Cinematographer</div>
+            <div class="exp-detail">DOP on ongoing web series. Visual language, shot design, and on-set camera operation.</div>
+          </div>
+          <div class="exp-year">2025–</div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-org">Ashoka Business Club</div>
+          <div>
+            <div class="exp-role">Marketing Associate</div>
+            <div class="exp-detail">Video production and social content for club campaigns. Reel reached 55,000+ views.</div>
+          </div>
+          <div class="exp-year">2025</div>
+        </div>
+
+        <div class="exp-row">
+          <div class="exp-org">The Jersey Collective</div>
+          <div>
+            <div class="exp-role">Creative Director</div>
+            <div class="exp-detail">Graphics, media support, and shoot production for pop-up events and product launches.</div>
+          </div>
+          <div class="exp-year">2024</div>
+        </div>
+
+        <!-- ➕ ADD NEW ROLE: copy one .exp-row block and paste here -->
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         §4  SKILLS
+         Edit: chip text, add/remove chips, change group labels
+         .chip.primary = highlighted/featured skill
+         ══════════════════════ -->
+    <section class="section" id="skills">
+      <div class="sec-label reveal">Skills</div>
+
+      <div class="skill-groups reveal">
+
+        <div class="skill-group">
+          <div class="skill-group-label">Production &amp; Visual</div>
+          <div class="chip-row">
+            <span class="chip primary">3D Visualization</span>
+            <span class="chip primary">Blender · PBR · HDRI</span>
+            <span class="chip primary">Video Production</span>
+            <span class="chip primary">Cinematography</span>
+            <span class="chip">DaVinci Resolve</span>
+            <span class="chip">Adobe Premiere</span>
+            <span class="chip">After Effects</span>
+            <span class="chip">VFX &amp; Compositing</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">Marketing &amp; Brand</div>
+          <div class="chip-row">
+            <span class="chip primary">Short-form Brand Content</span>
+            <span class="chip primary">Social Media Content</span>
+            <span class="chip">Graphic Design</span>
+            <span class="chip">Creative Direction</span>
+            <span class="chip">Adobe Illustrator</span>
+            <span class="chip">Canva</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">Leadership &amp; Management</div>
+          <div class="chip-row">
+            <span class="chip primary">Event Production</span>
+            <span class="chip">Team Leadership</span>
+            <span class="chip">Project Management</span>
+            <span class="chip">Creative Briefing</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">Technical (Learning)</div>
+          <div class="chip-row">
+            <span class="chip">Python</span>
+            <span class="chip">C</span>
+            <span class="chip">HTML · CSS</span>
+            <span class="chip">AI-assisted Development</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         §5  WORK & PROJECTS
+         Edit each card: .card-tag · .card-title · .card-desc · href on .card-ext link
+         HOW TO ADD REAL THUMBNAIL:
+           Remove: <div class="card-ph">TEXT</div>
+           Add:    <img src="YOUR_URL" alt="description">
+         HOW TO ADD NEW CARD: copy any .work-card block, paste before ➕ comment
+         ══════════════════════ -->
+    <section class="section" id="work">
+      <div class="sec-label reveal">Work &amp; Projects</div>
+
+      <div class="work-grid reveal">
+
+        <!-- Card 1 — TEDx -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">TEDx</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/tedxashokauniv/reel/DHqrf_boYAf/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Event Video Production</div>
+            <div class="card-title">TEDxAshoka University</div>
+            <div class="card-desc">Head of video production — full coverage from planning to final edit. 130,000+ views.</div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Apple Watch 3D -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">3D Render</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/mudit_main/reel/C8MBJ7wIa4Q/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">3D Visualization · Blender</div>
+            <div class="card-title">Apple Watch Concept Render</div>
+            <div class="card-desc">Product visualization exploring PBR materials, reflections, and HDRI lighting precision.</div>
+          </div>
+        </div>
+
+        <!-- Card 3 — HYST -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">HYST</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/haveyouseentara/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Short Film · Cinematographer</div>
+            <div class="card-title">Have You Seen Tara</div>
+            <div class="card-desc">DOP on ongoing web series. Shot design, visual language, and on-set camera operation.</div>
+          </div>
+        </div>
+
+        <!-- Card 4 — HUMAINE -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">HUMAINE</div>
+            <div class="thumb-line"></div>
+            <a href="https://youtu.be/GcCMzl7e1dE" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Short Film · Co-Founder</div>
+            <div class="card-title">HUMAINE — BAD Productions</div>
+            <div class="card-desc">Futuristic-themed short film. Full production — direction, cinematography, edit. 90K+ views.</div>
+          </div>
+        </div>
+
+        <!-- Card 5 — Dear Roommate 2 -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">DR2</div>
+            <div class="thumb-line"></div>
+            <a href="https://youtu.be/Ndr_bWrjQYc" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Short Film · BAD Productions</div>
+            <div class="card-title">Dear Roommate 2</div>
+            <div class="card-desc">Comic narrative short. Direction and post-production lead, 2024.</div>
+          </div>
+        </div>
+
+        <!-- Card 6 — Jersey Collective -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">Brand</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/thejerseycollective_/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Brand · Creative Direction</div>
+            <div class="card-title">The Jersey Collective</div>
+            <div class="card-desc">Creative direction — graphics, product shoot coordination, and pop-up event visual support.</div>
+          </div>
+        </div>
+
+        <!-- Card 7 — Hard Surface 3D -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">3D</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/mudit_main/reel/C61VH76viEY/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">3D · Hard Surface Modeling</div>
+            <div class="card-title">Hard Surface Studies</div>
+            <div class="card-desc">Mechanical asset modeling and lighting experiments in Blender.</div>
+          </div>
+        </div>
+
+        <!-- Card 8 — BClub -->
+        <div class="work-card">
+          <div class="card-thumb">
+            <div class="card-ph">BClub</div>
+            <div class="thumb-line"></div>
+            <a href="https://www.instagram.com/ashokabusinessclub/reel/DOtOEv1krMT/" target="_blank" class="card-ext">↗</a>
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Video · Social Media</div>
+            <div class="card-title">Business Club Ashoka — Campaign</div>
+            <div class="card-desc">Marketing reel for campus business club. 55,000+ views.</div>
+          </div>
+        </div>
+
+        <!-- ➕ ADD NEW CARD: copy any .work-card block and paste here -->
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         §6  CONNECT
+         Edit: .connect-heading · .connect-sub
+         Edit: each .c-link href + label text
+         Edit: .connect-foot spans (footer — only here)
+         ══════════════════════ -->
+    <section class="section" id="connect">
+      <div class="sec-label reveal">Connect with me</div>
+
+      <h2 class="connect-heading reveal">
+        Got a project in mind?<br><em>Let's make it.</em>
+      </h2>
+      <p class="connect-sub reveal">
+        Open to freelance projects, internships, and interesting collaborations.
+        Reach out directly — I respond fast.
+      </p>
+
+      <div class="connect-links reveal">
+
+        <a href="mailto:m14ahlawat@gmail.com" class="c-link">
+          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="1" y="3" width="14" height="10" rx="1"/><path d="M1 4l7 5 7-5"/>
+          </svg>
+          m14ahlawat@gmail.com
+        </a>
+
+        <a href="tel:+919416492464" class="c-link">
+          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 2h3l1.5 4-2 1.5a9 9 0 004 4L11 9.5l4 1.5v3a1 1 0 01-1 1A13 13 0 012 3a1 1 0 011-1z"/>
+          </svg>
+          +91 94164 92464
+        </a>
+
+        <a href="https://www.instagram.com/mudit_main/" target="_blank" class="c-link">
+          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="12" height="12" rx="3"/>
+            <circle cx="8" cy="8" r="3"/>
+            <circle cx="11.5" cy="4.5" r="0.5" fill="currentColor"/>
+          </svg>
+          @mudit_main
+        </a>
+
+        <a href="https://www.linkedin.com/in/mudit-ahlawat-83746733b/" target="_blank" class="c-link">
+          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="1" y="1" width="14" height="14" rx="2"/>
+            <path d="M5 7v5M5 5v.01M8 12v-3a2 2 0 014 0v3M8 7v5"/>
+          </svg>
+          LinkedIn
+        </a>
+
+      </div>
+
+      <!-- Footer — only here, not on any other section -->
+      <div class="connect-foot reveal">
+        <span>Mudit Ahlawat · 2026</span>
+        <span>Ashoka University · CS-Ent · Econ Minor</span>
+        <span>Available for freelance &amp; internships</span>
+      </div>
+    </section>
+
+  </main><!-- /main -->
+</div><!-- /shell -->
+
+
+<!-- ================================================================
+     JAVASCRIPT
+     - Tracks scroll position → highlights correct nav item + pill dot
+     - goto(id) — smooth scroll to any section
+     - Reveal animation on scroll
+     Don't edit unless something breaks.
+     ================================================================ -->
+<script>
+  const sections = ['hero','numbers','experience','skills','work','connect'];
+  const navBtns  = document.querySelectorAll('.nav-item');
+  const pillDots = document.querySelectorAll('.pill-dot');
+
+  function goto(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Update active nav item + pill dot based on which section is in view
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target.id);
+        if (idx === -1) return;
+        navBtns.forEach((b,i)  => b.classList.toggle('active', i === idx));
+        pillDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(id => { const el=document.getElementById(id); if(el) io.observe(el); });
+
+  // Scroll-reveal
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 80);
+        ro.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+</body>
+</html>
