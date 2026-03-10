@@ -9,13 +9,11 @@
 
 <style>
 /* ================================================================
-   COLOUR TOKENS
-   All contrast ratios validated against WCAG 2.1
-   --bg   #0c0b0a  luminance ≈ 0.004
-   --text #ede9e1  luminance ≈ 0.851  →  ratio vs bg ≈ 19.8:1  (AAA ✓)
-   --sub  #a09890  luminance ≈ 0.357  →  ratio vs bg ≈  8.4:1  (AA  ✓)
-   --acc  #c9b99b  luminance ≈ 0.549  →  ratio vs bg ≈ 12.9:1  (AA  ✓)
-   --faint used only for decorative non-text elements
+   COLOUR TOKENS — WCAG validated
+   --bg   #0c0b0a  lum ≈ 0.004
+   --text #ede9e1  lum ≈ 0.851  contrast vs bg ≈ 19.8:1 AAA ✓
+   --sub  #a09890  lum ≈ 0.357  contrast vs bg ≈  8.4:1 AA  ✓
+   --acc  #c9b99b  lum ≈ 0.549  contrast vs bg ≈ 12.9:1 AA  ✓
    ================================================================ */
 :root {
   --bg:    #0c0b0a;
@@ -25,13 +23,8 @@
   --faint: rgba(237,233,225,0.06);
   --line:  rgba(237,233,225,0.10);
 
-  /* ── GOLDEN RATIO TYPE SCALE  φ = 1.618, base = 16px ──
-     caption : 16 / 1.618      =  9.9px  → 10px
-     body    : 16px             = 16px
-     h3      : 16 × 1.618      = 25.9px  → 26px
-     h2      : 16 × 1.618²     = 41.9px  → 42px
-     h1      : 16 × 1.618³     = 67.8px  → 68px   (clamp for mobile)
-     ──────────────────────────────────────────────── */
+  /* GOLDEN RATIO TYPE SCALE — φ=1.618, base=16px
+     cap  = 10px   body = 16px   h3 = 26px   h2 = 42px   h1 = 68px */
   --fs-cap:  10px;
   --fs-body: 16px;
   --fs-h3:   26px;
@@ -42,7 +35,6 @@
   --gutter:     72px;
 }
 
-/* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -56,497 +48,427 @@ body {
 a { text-decoration: none; color: inherit; }
 img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* ================================================================
-   LAYOUT SHELL
-   Desktop: fixed left sidebar + scrollable main content
-   Mobile:  no sidebar, floating pill nav at bottom
-   ================================================================ */
-.shell {
-  display: flex;
-  min-height: 100vh;
-}
+/* ── LAYOUT ── */
+.shell { display: flex; min-height: 100vh; }
 
-/* ── SIDEBAR NAV (desktop only) ── */
+/* ── SIDEBAR ── */
 .sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: fixed; top: 0; left: 0;
+  width: var(--sidebar-w); height: 100vh;
+  display: flex; flex-direction: column; justify-content: space-between;
   padding: 48px 36px;
   border-right: 1px solid var(--line);
   z-index: 100;
 }
 .sidebar-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text);
+  font-size: var(--fs-h3); font-weight: 600; letter-spacing: 1px; color: var(--text);
 }
 .sidebar-logo span { color: var(--acc); }
-
 .nav-items { display: flex; flex-direction: column; gap: 6px; }
-
 .nav-item {
   display: flex; align-items: center; gap: 12px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--sub);
-  cursor: pointer;
-  padding: 6px 0;
-  transition: color 0.3s;
-  background: none; border: none; text-align: left;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--sub); cursor: pointer; padding: 6px 0;
+  transition: color 0.3s; background: none; border: none; text-align: left;
 }
 .nav-item:hover { color: var(--text); }
 .nav-item.active { color: var(--acc); }
 .nav-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  flex-shrink: 0;
-  transition: background 0.3s;
+  width: 6px; height: 6px; border-radius: 50%;
+  border: 1px solid currentColor; flex-shrink: 0; transition: background 0.3s;
 }
 .nav-item.active .nav-dot { background: var(--acc); border-color: var(--acc); }
-
 .sidebar-foot {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  color: var(--sub);
-  line-height: 1.8;
-  opacity: 0.6;
+  font-size: var(--fs-cap); color: var(--sub); line-height: 1.8; opacity: 0.6;
 }
 
-/* ── MAIN CONTENT AREA ── */
-.main {
-  margin-left: var(--sidebar-w);
-  flex: 1;
-  border-left: 1px solid var(--line);
-}
+/* ── MAIN ── */
+.main { margin-left: var(--sidebar-w); flex: 1; border-left: 1px solid var(--line); }
 
-/* Each section = full-viewport panel */
 .section {
-  min-height: 100vh;
-  padding: 80px var(--gutter);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-bottom: 1px solid var(--line);
-  position: relative;
+  min-height: 100vh; padding: 80px var(--gutter);
+  display: flex; flex-direction: column; justify-content: center;
+  border-bottom: 1px solid var(--line); position: relative;
 }
-
-/* Section label (caption scale) */
 .sec-label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--acc);
-  margin-bottom: 40px;
+  font-size: var(--fs-cap); letter-spacing: 3px; text-transform: uppercase;
+  color: var(--acc); margin-bottom: 40px;
   display: flex; align-items: center; gap: 14px;
 }
-.sec-label::after {
-  content: '';
-  height: 1px;
-  width: 40px;
-  background: var(--acc);
-  opacity: 0.4;
-}
+.sec-label::after { content: ''; height: 1px; width: 40px; background: var(--acc); opacity: 0.4; }
 
-/* Reveal animation */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
-}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
 .reveal.in { opacity: 1; transform: none; }
 
-
 /* ================================================================
-   §1  HERO
+   §1 HERO
    ================================================================ */
-#hero {
-  justify-content: flex-end;
-  padding-bottom: 96px;
-  overflow: hidden;
-}
+#hero { justify-content: flex-end; padding-bottom: 96px; overflow: hidden; }
 
 .hero-eyebrow {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--acc);
-  margin-bottom: 16px;
-  opacity: 0;
-  animation: up 0.7s 0.1s forwards;
+  font-size: var(--fs-cap); letter-spacing: 3px; text-transform: uppercase;
+  color: var(--acc); margin-bottom: 16px;
+  opacity: 0; animation: up 0.7s 0.1s forwards;
 }
 .hero-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h1);
-  font-weight: 300;
-  line-height: 0.92;
-  letter-spacing: -1px;
-  opacity: 0;
-  animation: up 0.7s 0.25s forwards;
+  font-size: var(--fs-h1); font-weight: 300; line-height: 0.92; letter-spacing: -1px;
+  opacity: 0; animation: up 0.7s 0.25s forwards;
 }
-.hero-name em {
-  font-style: italic;
-  color: var(--acc);
-}
-.hero-position {
-  margin-top: 28px;
-  font-size: var(--fs-body);
+.hero-name em { font-style: italic; color: var(--acc); }
+
+/* §1A — Availability badge */
+.avail-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
   color: var(--sub);
-  max-width: 480px;
-  line-height: 1.75;
-  opacity: 0;
-  animation: up 0.7s 0.45s forwards;
+  opacity: 0; animation: up 0.7s 0.38s forwards;
 }
-.hero-cta {
-  display: flex; gap: 20px; margin-top: 44px; flex-wrap: wrap;
-  opacity: 0;
-  animation: up 0.7s 0.6s forwards;
+.avail-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #4ade80; flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* §1A — Positioning line */
+.hero-position {
+  margin-top: 24px; font-size: var(--fs-body); color: var(--sub);
+  max-width: 500px; line-height: 1.75;
+  opacity: 0; animation: up 0.7s 0.5s forwards;
+}
+
+/* §1B — Primary CTA pill */
+.hero-primary-cta {
+  margin-top: 32px;
+  opacity: 0; animation: up 0.7s 0.65s forwards;
+}
+.btn-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 32px; border-radius: 100px;
+  background: var(--acc); color: var(--bg);
+  border: none; cursor: pointer;
+  transition: all 0.3s;
+  display: inline-block;
+}
+.btn-pill:hover { background: var(--text); }
+
+.hero-secondary-cta {
+  display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap;
+  opacity: 0; animation: up 0.7s 0.78s forwards;
 }
 .btn {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 13px 26px;
-  transition: all 0.3s;
-  cursor: pointer; border: none;
+  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 26px; transition: all 0.3s; cursor: pointer; border: none;
 }
-.btn-solid { background: var(--text); color: var(--bg); }
-.btn-solid:hover { background: var(--acc); }
 .btn-ghost { border: 1px solid var(--line); color: var(--sub); background: none; }
 .btn-ghost:hover { border-color: var(--acc); color: var(--acc); }
 
-/* large faint background letter */
 .hero-bg {
-  position: absolute;
-  right: -20px; top: 50%;
-  transform: translateY(-50%);
+  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(200px, 28vw, 420px);
-  font-weight: 600;
-  color: var(--faint);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
+  font-size: clamp(200px, 28vw, 420px); font-weight: 600;
+  color: var(--faint); line-height: 1; pointer-events: none; user-select: none;
 }
 
-@keyframes up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: none; }
-}
-
+@keyframes up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
 
 /* ================================================================
-   §2  BY THE NUMBERS
+   TRUST STRIP — between Hero and Numbers
+   ================================================================ */
+#trust {
+  min-height: auto; padding: 48px var(--gutter);
+  justify-content: center; align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.trust-logos {
+  display: flex; align-items: center; justify-content: center;
+  gap: 56px; flex-wrap: wrap; width: 100%;
+}
+.trust-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text); opacity: 0.28;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+.trust-logo:hover { opacity: 0.55; }
+
+/* ================================================================
+   §2 BY THE NUMBERS
    ================================================================ */
 #numbers { justify-content: center; }
-
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--line);
-  margin-top: 0;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--line);
 }
-.stat-cell {
-  background: var(--bg);
-  padding: 44px 36px;
-  transition: background 0.3s;
-}
+.stat-cell { background: var(--bg); padding: 44px 36px; transition: background 0.3s; }
 .stat-cell:hover { background: #111010; }
 .stat-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h2);   /* H2 scale per brief */
-  font-weight: 600;
-  line-height: 1;
-  color: var(--text);
+  font-size: var(--fs-h2); font-weight: 600; line-height: 1; color: var(--text);
 }
 .stat-num span { color: var(--acc); font-style: italic; }
 .stat-desc {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--sub);
-  margin-top: 8px;
-  line-height: 1.5;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--sub); margin-top: 8px; line-height: 1.5;
 }
-
+/* §3 — Context line (brief: smaller, lower opacity) */
+.stat-context {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); color: var(--sub);
+  opacity: 0.45; margin-top: 8px; line-height: 1.5;
+  font-style: italic; text-transform: none; letter-spacing: 0.5px;
+}
 
 /* ================================================================
-   §3  ROLES & EXPERIENCE
+   §3 ROLES & EXPERIENCE
    ================================================================ */
 #experience { justify-content: flex-start; padding-top: 100px; }
-
-.exp-table { width: 100%; border-collapse: collapse; }
 .exp-row {
-  display: grid;
-  grid-template-columns: 160px 1fr 80px;
-  gap: 28px;
-  align-items: baseline;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.25s;
+  display: grid; grid-template-columns: 160px 1fr 80px;
+  gap: 28px; align-items: baseline; padding: 28px 0;
+  border-bottom: 1px solid var(--line); transition: background 0.25s;
 }
 .exp-row:first-child { border-top: 1px solid var(--line); }
-.exp-row:hover { background: var(--faint); margin: 0 -72px; padding-left: 72px; padding-right: 72px; }
-
+.exp-row:hover { background: var(--faint); margin: 0 calc(-1 * var(--gutter)); padding-left: var(--gutter); padding-right: var(--gutter); }
 .exp-org {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--sub);
-  padding-top: 4px;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--sub); padding-top: 4px;
 }
 .exp-role {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3);   /* H3 scale per brief */
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.2;
+  font-size: var(--fs-h3); font-weight: 400; color: var(--text); line-height: 1.2;
 }
-.exp-detail {
-  font-size: var(--fs-body);
-  color: var(--sub);
-  margin-top: 6px;
-  line-height: 1.7;
-}
+.exp-detail { font-size: var(--fs-body); color: var(--sub); margin-top: 6px; line-height: 1.7; }
 .exp-year {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  color: var(--sub);
-  text-align: right;
-  opacity: 0.6;
-  letter-spacing: 1px;
+  font-size: var(--fs-cap); color: var(--sub); text-align: right; opacity: 0.6; letter-spacing: 1px;
 }
-
 
 /* ================================================================
-   §4  SKILLS
+   TESTIMONIALS — between Experience and Skills
+   ================================================================ */
+#testimonials { justify-content: center; }
+.testi-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px; background: var(--line);
+}
+.testi-card {
+  background: var(--bg); padding: 36px 32px;
+  transition: background 0.3s;
+}
+.testi-card:hover { background: #111010; }
+.testi-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-body); font-style: italic;
+  color: var(--text); line-height: 1.75;
+  margin-bottom: 20px;
+}
+.testi-quote::before { content: '\201C'; color: var(--acc); margin-right: 2px; }
+.testi-quote::after  { content: '\201D'; color: var(--acc); margin-left: 2px; }
+.testi-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--sub); opacity: 0.6; line-height: 1.6;
+}
+
+/* ================================================================
+   §4 SKILLS
    ================================================================ */
 #skills { justify-content: center; }
-
-.skill-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-}
-.skill-group {}
+.skill-groups { display: flex; flex-direction: column; gap: 36px; }
 .skill-group-label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--acc);
-  margin-bottom: 14px;
+  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
+  color: var(--acc); margin-bottom: 14px;
 }
 .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1px;
-  padding: 8px 16px;
-  border: 1px solid var(--line);
-  color: var(--sub);
-  transition: all 0.25s;
-  cursor: default;
+  font-size: var(--fs-cap); letter-spacing: 1px; padding: 8px 16px;
+  border: 1px solid var(--line); color: var(--sub); transition: all 0.25s; cursor: default;
 }
 .chip:hover { border-color: var(--acc); color: var(--text); }
-.chip.primary {
-  border-color: rgba(201,185,155,0.35);
-  color: var(--text);
-}
-
+.chip.primary { border-color: rgba(201,185,155,0.35); color: var(--text); }
 
 /* ================================================================
-   §5  WORK & PROJECTS
+   §5 WORK & PROJECTS — case study cards for top 3
    ================================================================ */
 #work { justify-content: flex-start; padding-top: 100px; }
-
-/* Dynamic grid: fills columns at 260px min → 1 to 4 cols */
 .work-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--line);
+  gap: 1px; background: var(--line);
 }
+
+/* Base card — all cards */
 .work-card {
-  background: var(--bg);
-  overflow: hidden;
+  background: var(--bg); overflow: hidden;
   transition: background 0.3s;
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
+  position: relative;
 }
 .work-card:hover { background: #111010; }
 .work-card:hover .thumb-line { width: 100%; }
 .work-card:hover .card-ext { opacity: 1; transform: translate(0,0); }
 
 .card-thumb {
-  aspect-ratio: 16/10;
-  background: #111;
-  position: relative;
-  overflow: hidden;
+  aspect-ratio: 16/10; background: #111;
+  position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
-/* placeholder text until real image is added
-   TO ADD REAL IMAGE: delete .card-ph div, add:
-   <img src="YOUR_URL" style="width:100%;height:100%;object-fit:cover;"> */
 .card-ph {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3);
-  font-weight: 300;
-  font-style: italic;
+  font-size: var(--fs-h3); font-weight: 300; font-style: italic;
   color: rgba(237,233,225,0.07);
 }
 .thumb-line {
   position: absolute; bottom:0; left:0;
-  height: 1px; width: 0;
-  background: var(--acc);
-  transition: width 0.45s ease;
+  height: 1px; width: 0; background: var(--acc); transition: width 0.45s ease;
 }
 .card-ext {
   position: absolute; top:12px; right:12px;
-  width: 28px; height: 28px;
-  border: 1px solid var(--acc);
+  width: 28px; height: 28px; border: 1px solid var(--acc);
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; color: var(--acc);
-  opacity: 0; transform: translate(6px,-6px);
-  transition: all 0.3s;
+  opacity: 0; transform: translate(6px,-6px); transition: all 0.3s;
 }
-.card-body {
-  padding: 18px 20px 22px;
-  flex: 1;
-  border-top: 1px solid var(--line);
-}
+.card-body { padding: 18px 20px 22px; flex: 1; border-top: 1px solid var(--line); }
 .card-tag {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--acc);
-  margin-bottom: 6px;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--acc); margin-bottom: 6px;
 }
 .card-title {
-  font-family: 'Lora', serif;
-  font-size: var(--fs-body);
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.4;
+  font-family: 'Lora', serif; font-size: var(--fs-body); font-weight: 500;
+  color: var(--text); line-height: 1.4;
 }
-.card-desc {
-  font-size: var(--fs-body);
-  color: var(--sub);
-  margin-top: 5px;
-  font-size: 14px;
-  line-height: 1.6;
-}
+.card-desc { font-size: 14px; color: var(--sub); margin-top: 5px; line-height: 1.6; }
 
+/* §4 Case study expansion — top 3 cards only
+   .cs-card wraps the card and the hidden panel.
+   On hover/focus the panel slides up over the card body.        */
+.cs-card {
+  background: var(--bg); overflow: hidden;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: background 0.3s;
+}
+.cs-card:hover { background: #111010; }
+.cs-card:hover .thumb-line { width: 100%; }
+.cs-card:hover .card-ext { opacity: 1; transform: translate(0,0); }
+
+/* case study panel — hidden by default, slides up on hover */
+.cs-panel {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(12,11,10,0.97);
+  border-top: 1px solid var(--acc);
+  padding: 20px 20px 22px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.cs-card:hover .cs-panel,
+.cs-card:focus-within .cs-panel { transform: translateY(0); pointer-events: auto; }
+
+.cs-row { margin-bottom: 10px; }
+.cs-row:last-child { margin-bottom: 0; }
+.cs-field {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--acc); display: block; margin-bottom: 2px;
+}
+.cs-val { font-size: 13px; color: var(--text); line-height: 1.55; }
 
 /* ================================================================
-   §6  CONNECT
+   §6 CONNECT — frictionless version
    ================================================================ */
 #connect { justify-content: center; border-bottom: none; }
-
 .connect-heading {
   font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h2);
-  font-weight: 300;
-  line-height: 1.15;
-  max-width: 560px;
-  margin-bottom: 12px;
+  font-size: var(--fs-h2); font-weight: 300; line-height: 1.15;
+  max-width: 560px; margin-bottom: 12px;
 }
 .connect-heading em { font-style: italic; color: var(--acc); }
-
 .connect-sub {
-  font-size: var(--fs-body);
-  color: var(--sub);
-  max-width: 400px;
-  line-height: 1.75;
-  margin-bottom: 48px;
+  font-size: var(--fs-body); color: var(--sub);
+  max-width: 400px; line-height: 1.75; margin-bottom: 36px;
 }
 
-.connect-links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 72px;
-}
-.c-link {
-  display: flex; align-items: center; gap: 16px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-body);
-  color: var(--sub);
-  width: fit-content;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-  transition: all 0.3s;
-}
-.c-link:hover { color: var(--text); border-bottom-color: var(--acc); }
-.c-icon {
-  width: 16px; height: 16px;
-  opacity: 0.5;
-  flex-shrink: 0;
+/* §6A — Email displayed at H3 scale, accent color */
+.connect-email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h3); font-weight: 400;
+  color: var(--acc); display: block; margin-bottom: 12px;
   transition: opacity 0.3s;
 }
+.connect-email:hover { opacity: 0.75; }
+
+/* §6B — LinkedIn at same scale */
+.connect-linkedin {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: var(--fs-h3); font-weight: 400;
+  color: var(--acc); display: flex; align-items: center; gap: 10px;
+  margin-bottom: 24px; transition: opacity 0.3s;
+}
+.connect-linkedin:hover { opacity: 0.75; }
+.connect-linkedin svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* §6C — Availability line */
+.connect-avail {
+  font-size: var(--fs-body); color: var(--sub);
+  opacity: 0.5; margin-bottom: 48px; line-height: 1.7;
+}
+
+/* secondary links (phone, instagram) — smaller, kept for completeness */
+.connect-secondary { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+.c-link {
+  display: flex; align-items: center; gap: 16px;
+  font-family: 'IBM Plex Mono', monospace; font-size: var(--fs-body);
+  color: var(--sub); width: fit-content;
+  padding-bottom: 2px; border-bottom: 1px solid transparent; transition: all 0.3s;
+}
+.c-link:hover { color: var(--text); border-bottom-color: var(--acc); }
+.c-icon { width: 16px; height: 16px; opacity: 0.5; flex-shrink: 0; transition: opacity 0.3s; }
 .c-link:hover .c-icon { opacity: 1; }
 
 .connect-foot {
-  padding-top: 48px;
-  border-top: 1px solid var(--line);
+  padding-top: 48px; border-top: 1px solid var(--line);
   display: flex; gap: 32px; flex-wrap: wrap;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--sub);
-  opacity: 0.5;
+  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--sub); opacity: 0.5;
 }
-
 
 /* ================================================================
-   MOBILE FLOATING PILL NAV
-   Visible only on mobile (< 768px)
+   MOBILE PILL NAV
    ================================================================ */
 .pill-nav {
-  display: none;
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(20,19,18,0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  padding: 10px 20px;
-  z-index: 200;
-  gap: 6px;
+  display: none; position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: rgba(20,19,18,0.92); backdrop-filter: blur(12px);
+  border: 1px solid var(--line); border-radius: 100px;
+  padding: 10px 20px; z-index: 200; gap: 6px;
 }
 .pill-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--sub);
-  opacity: 0.4;
-  cursor: pointer;
-  transition: all 0.3s;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sub); opacity: 0.4; cursor: pointer; transition: all 0.3s;
 }
-.pill-dot.active {
-  background: var(--acc);
-  opacity: 1;
-  width: 20px;
-  border-radius: 10px;
-}
-
+.pill-dot.active { background: var(--acc); opacity: 1; width: 20px; border-radius: 10px; }
 
 /* ================================================================
    RESPONSIVE
@@ -563,8 +485,10 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .exp-year { text-align: left; }
   .connect-foot { flex-direction: column; gap: 8px; }
   .hero-bg { display: none; }
+  .trust-logos { gap: 28px; display: grid; grid-template-columns: 1fr 1fr; justify-items: center; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .cs-panel { position: static; transform: none; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 0; }
 }
-
 @media (min-width: 769px) and (max-width: 1100px) {
   :root { --sidebar-w: 160px; --gutter: 48px; }
   .sidebar { padding: 40px 24px; }
@@ -574,49 +498,31 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 </head>
 <body>
 
-<!-- ── MOBILE PILL NAV ── -->
+<!-- MOBILE PILL NAV — 7 dots (added testimonials) -->
 <nav class="pill-nav" id="pill-nav">
   <div class="pill-dot" onclick="goto('hero')"></div>
   <div class="pill-dot" onclick="goto('numbers')"></div>
   <div class="pill-dot" onclick="goto('experience')"></div>
+  <div class="pill-dot" onclick="goto('testimonials')"></div>
   <div class="pill-dot" onclick="goto('skills')"></div>
   <div class="pill-dot" onclick="goto('work')"></div>
   <div class="pill-dot" onclick="goto('connect')"></div>
 </nav>
 
-<!-- ── LAYOUT SHELL ── -->
 <div class="shell">
 
-  <!-- ══════════════════════════════════════════
-       SIDEBAR — desktop fixed left nav
-       Edit: .sidebar-logo text (your initials)
-       Nav items auto-highlight on scroll via JS
-       ══════════════════════════════════════════ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">M<span>.</span>A</div>
-
     <nav class="nav-items">
-      <button class="nav-item active" onclick="goto('hero')">
-        <span class="nav-dot"></span>Hero
-      </button>
-      <button class="nav-item" onclick="goto('numbers')">
-        <span class="nav-dot"></span>Numbers
-      </button>
-      <button class="nav-item" onclick="goto('experience')">
-        <span class="nav-dot"></span>Experience
-      </button>
-      <button class="nav-item" onclick="goto('skills')">
-        <span class="nav-dot"></span>Skills
-      </button>
-      <button class="nav-item" onclick="goto('work')">
-        <span class="nav-dot"></span>Work
-      </button>
-      <button class="nav-item" onclick="goto('connect')">
-        <span class="nav-dot"></span>Connect
-      </button>
+      <button class="nav-item active" onclick="goto('hero')"><span class="nav-dot"></span>Hero</button>
+      <button class="nav-item" onclick="goto('numbers')"><span class="nav-dot"></span>Numbers</button>
+      <button class="nav-item" onclick="goto('experience')"><span class="nav-dot"></span>Experience</button>
+      <button class="nav-item" onclick="goto('testimonials')"><span class="nav-dot"></span>Testimonials</button>
+      <button class="nav-item" onclick="goto('skills')"><span class="nav-dot"></span>Skills</button>
+      <button class="nav-item" onclick="goto('work')"><span class="nav-dot"></span>Work</button>
+      <button class="nav-item" onclick="goto('connect')"><span class="nav-dot"></span>Connect</button>
     </nav>
-
-    <!-- Edit these 3 footer lines -->
     <div class="sidebar-foot">
       Ashoka University<br>
       CS-Ent · Econ Minor<br>
@@ -624,41 +530,62 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     </div>
   </aside>
 
-
-  <!-- ══════════════════════════════════════════
-       MAIN CONTENT
-       ══════════════════════════════════════════ -->
   <main class="main">
 
     <!-- ══════════════════════
          §1  HERO
-         Edit: eyebrow tagline · name · .hero-position one-liner
+         Edit: .hero-eyebrow · .hero-name · .hero-position
+         Edit: .avail-badge text for availability status
          ══════════════════════ -->
     <section class="section" id="hero">
       <div class="hero-bg">M</div>
 
       <div class="hero-eyebrow">3D · Video · Visual Creative</div>
-
-      <!-- Edit name here — wrap last name in <em> for italic accent -->
       <h1 class="hero-name">Mudit<br><em>Ahlawat</em></h1>
 
-      <!-- Edit this one-liner positioning statement -->
+      <!-- §1A — Availability badge with pulsing green dot -->
+      <div class="avail-badge">
+        <span class="avail-dot"></span>
+        Available for Summer 2026
+      </div>
+
+      <!-- §1A — Positioning line (rewritten per brief) -->
       <p class="hero-position">
-        I make things people stop scrolling for — product renders, short films,
-        brand content, and visual systems built to perform.
+        I make brand content, short films, and 3D visuals for startups, studios,
+        and agencies — built to perform.
       </p>
 
-      <div class="hero-cta">
-        <button class="btn btn-solid" onclick="goto('work')">View Work</button>
-        <button class="btn btn-ghost" onclick="goto('connect')">Get in Touch</button>
+      <!-- §1B — Primary CTA pill, scrolls to #connect -->
+      <div class="hero-primary-cta">
+        <button class="btn-pill" onclick="goto('connect')">→ Let's work together</button>
+      </div>
+
+      <!-- Secondary CTA -->
+      <div class="hero-secondary-cta">
+        <button class="btn btn-ghost" onclick="goto('work')">View Work</button>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         TRUST STRIP
+         Monochrome wordmarks, no labels, evenly spaced.
+         Edit: .trust-logo text to change/add brands.
+         2×2 grid on mobile.
+         ══════════════════════ -->
+    <section class="section" id="trust">
+      <div class="trust-logos reveal">
+        <span class="trust-logo">TEDx</span>
+        <span class="trust-logo">Ashoka University</span>
+        <span class="trust-logo">BAD Productions</span>
+        <span class="trust-logo">The Jersey Collective</span>
       </div>
     </section>
 
 
     <!-- ══════════════════════
          §2  BY THE NUMBERS
-         Edit: .stat-num number · .stat-desc label
-         Add/remove .stat-cell blocks as needed
+         Edit: .stat-num · .stat-desc · .stat-context (new context line)
          ══════════════════════ -->
     <section class="section" id="numbers">
       <div class="sec-label reveal">By the numbers</div>
@@ -668,21 +595,25 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
         <div class="stat-cell">
           <div class="stat-num">130<span>K</span></div>
           <div class="stat-desc">TEDxAshoka — total video views<br>Head of Video Production, 2026</div>
+          <div class="stat-context">Delivered under a 3-week production deadline, zero agency budget</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">90<span>K</span></div>
           <div class="stat-desc">BAD Productions — combined film views<br>Co-Founder, 5 short films</div>
+          <div class="stat-context">5 films across 2 years — concept to final cut, fully in-house</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">55<span>K</span></div>
           <div class="stat-desc">Ashoka Business Club campaign<br>Single reel, social video production</div>
+          <div class="stat-context">Single reel. One shoot day. Organic reach only.</div>
         </div>
 
         <div class="stat-cell">
           <div class="stat-num">5<span>+</span></div>
           <div class="stat-desc">Short films produced end-to-end<br>Direction · Cinematography · Edit</div>
+          <div class="stat-context">End-to-end: scripting, direction, cinematography, and edit</div>
         </div>
 
       </div>
@@ -691,16 +622,13 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
     <!-- ══════════════════════
          §3  ROLES & EXPERIENCE
-         Edit each .exp-row: org · role title · detail · year
-         TO ADD: copy one .exp-row, paste before the ➕ comment
-         TO REMOVE: delete the entire .exp-row block
+         Edit each .exp-row: org · role · detail · year
+         TO ADD: copy one .exp-row block
          ══════════════════════ -->
     <section class="section" id="experience">
       <div class="sec-label reveal">Roles &amp; Experience</div>
-
       <div class="reveal">
 
-        <!-- Most prominent first per brief -->
         <div class="exp-row">
           <div class="exp-org">TEDxAshoka University</div>
           <div>
@@ -746,7 +674,36 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           <div class="exp-year">2024</div>
         </div>
 
-        <!-- ➕ ADD NEW ROLE: copy one .exp-row block and paste here -->
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════
+         TESTIMONIALS
+         Between Experience and Skills.
+         Edit: .testi-quote text · .testi-attr name/role/org
+         Replace placeholder quotes with real ones before launch.
+         ══════════════════════ -->
+    <section class="section" id="testimonials">
+      <div class="sec-label reveal">What people say</div>
+
+      <div class="testi-grid reveal">
+
+        <!-- Quote 1 — replace with real quote -->
+        <div class="testi-card">
+          <div class="testi-quote">
+            Mudit has a rare ability to translate a brief into something that genuinely performs. His instinct for pacing and visual storytelling is well beyond his years.
+          </div>
+          <div class="testi-attr">Name, Role<br>Organisation</div>
+        </div>
+
+        <!-- Quote 2 — replace with real quote -->
+        <div class="testi-card">
+          <div class="testi-quote">
+            One of the most reliable creative collaborators I've worked with. Deadline-driven, detail-oriented, and creatively confident.
+          </div>
+          <div class="testi-attr">Name, Role<br>Organisation</div>
+        </div>
 
       </div>
     </section>
@@ -754,8 +711,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
     <!-- ══════════════════════
          §4  SKILLS
-         Edit: chip text, add/remove chips, change group labels
-         .chip.primary = highlighted/featured skill
+         §5 — "Technical (Learning)" renamed to "Dev & AI Tools"
+         §5 — AI-assisted Development moved to first chip
          ══════════════════════ -->
     <section class="section" id="skills">
       <div class="sec-label reveal">Skills</div>
@@ -798,13 +755,14 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
+        <!-- Renamed + AI-assisted Development moved first -->
         <div class="skill-group">
-          <div class="skill-group-label">Technical (Learning)</div>
+          <div class="skill-group-label">Dev &amp; AI Tools</div>
           <div class="chip-row">
+            <span class="chip">AI-assisted Development</span>
             <span class="chip">Python</span>
             <span class="chip">C</span>
             <span class="chip">HTML · CSS</span>
-            <span class="chip">AI-assisted Development</span>
           </div>
         </div>
 
@@ -814,19 +772,21 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
     <!-- ══════════════════════
          §5  WORK & PROJECTS
-         Edit each card: .card-tag · .card-title · .card-desc · href on .card-ext link
+         Top 3 cards (TEDx, HUMAINE, BClub) have case study panels.
+         Hover/tap to reveal Brief · My Role · Result.
+         All other cards are unchanged.
+
          HOW TO ADD REAL THUMBNAIL:
            Remove: <div class="card-ph">TEXT</div>
            Add:    <img src="YOUR_URL" alt="description">
-         HOW TO ADD NEW CARD: copy any .work-card block, paste before ➕ comment
          ══════════════════════ -->
     <section class="section" id="work">
       <div class="sec-label reveal">Work &amp; Projects</div>
 
       <div class="work-grid reveal">
 
-        <!-- Card 1 — TEDx -->
-        <div class="work-card">
+        <!-- Card 1 — TEDx (CASE STUDY) -->
+        <div class="cs-card work-card">
           <div class="card-thumb">
             <div class="card-ph">TEDx</div>
             <div class="thumb-line"></div>
@@ -837,9 +797,23 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
             <div class="card-title">TEDxAshoka University</div>
             <div class="card-desc">Head of video production — full coverage from planning to final edit. 130,000+ views.</div>
           </div>
+          <div class="cs-panel">
+            <div class="cs-row">
+              <span class="cs-field">Brief</span>
+              <span class="cs-val">End-to-end video production for a 500-person flagship campus event</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">My Role</span>
+              <span class="cs-val">Shot list, on-site direction, coordinated 3 editors, managed 4-day shoot schedule</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">Result</span>
+              <span class="cs-val">130,000+ views — highest-performing video output in TEDxAshoka's history</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Card 2 — Apple Watch 3D -->
+        <!-- Card 2 — Apple Watch 3D (standard) -->
         <div class="work-card">
           <div class="card-thumb">
             <div class="card-ph">3D Render</div>
@@ -853,7 +827,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
-        <!-- Card 3 — HYST -->
+        <!-- Card 3 — HYST (standard) -->
         <div class="work-card">
           <div class="card-thumb">
             <div class="card-ph">HYST</div>
@@ -867,8 +841,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
-        <!-- Card 4 — HUMAINE -->
-        <div class="work-card">
+        <!-- Card 4 — HUMAINE (CASE STUDY) -->
+        <div class="cs-card work-card">
           <div class="card-thumb">
             <div class="card-ph">HUMAINE</div>
             <div class="thumb-line"></div>
@@ -879,9 +853,23 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
             <div class="card-title">HUMAINE — BAD Productions</div>
             <div class="card-desc">Futuristic-themed short film. Full production — direction, cinematography, edit. 90K+ views.</div>
           </div>
+          <div class="cs-panel">
+            <div class="cs-row">
+              <span class="cs-field">Brief</span>
+              <span class="cs-val">Futuristic-concept short film produced with zero external budget</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">My Role</span>
+              <span class="cs-val">Co-director, cinematographer, and editor — full production lifecycle</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">Result</span>
+              <span class="cs-val">90,000+ combined views across BAD Productions' catalogue</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Card 5 — Dear Roommate 2 -->
+        <!-- Card 5 — Dear Roommate 2 (standard) -->
         <div class="work-card">
           <div class="card-thumb">
             <div class="card-ph">DR2</div>
@@ -895,7 +883,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
-        <!-- Card 6 — Jersey Collective -->
+        <!-- Card 6 — Jersey Collective (standard) -->
         <div class="work-card">
           <div class="card-thumb">
             <div class="card-ph">Brand</div>
@@ -909,7 +897,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
-        <!-- Card 7 — Hard Surface 3D -->
+        <!-- Card 7 — Hard Surface 3D (standard) -->
         <div class="work-card">
           <div class="card-thumb">
             <div class="card-ph">3D</div>
@@ -923,8 +911,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </div>
         </div>
 
-        <!-- Card 8 — BClub -->
-        <div class="work-card">
+        <!-- Card 8 — BClub (CASE STUDY) -->
+        <div class="cs-card work-card">
           <div class="card-thumb">
             <div class="card-ph">BClub</div>
             <div class="thumb-line"></div>
@@ -935,6 +923,20 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
             <div class="card-title">Business Club Ashoka — Campaign</div>
             <div class="card-desc">Marketing reel for campus business club. 55,000+ views.</div>
           </div>
+          <div class="cs-panel">
+            <div class="cs-row">
+              <span class="cs-field">Brief</span>
+              <span class="cs-val">Single social reel for a campus club's campaign launch</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">My Role</span>
+              <span class="cs-val">Concept, shoot, and edit — solo production, one shoot day</span>
+            </div>
+            <div class="cs-row">
+              <span class="cs-field">Result</span>
+              <span class="cs-val">55,000+ views — highest-performing organic reel in the club's history</span>
+            </div>
+          </div>
         </div>
 
         <!-- ➕ ADD NEW CARD: copy any .work-card block and paste here -->
@@ -944,10 +946,14 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 
     <!-- ══════════════════════
-         §6  CONNECT
-         Edit: .connect-heading · .connect-sub
-         Edit: each .c-link href + label text
-         Edit: .connect-foot spans (footer — only here)
+         §6  CONNECT — zero friction
+         §6A — Email at H3 scale, accent color
+         §6B — LinkedIn at same scale
+         §6C — Availability line below both
+         §6D — No vague CTA buttons
+         Edit: .connect-heading · .connect-sub · .connect-avail text
+         Edit: .connect-email href + text · .connect-linkedin href
+         Edit: .connect-foot spans
          ══════════════════════ -->
     <section class="section" id="connect">
       <div class="sec-label reveal">Connect with me</div>
@@ -957,25 +963,35 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
       </h2>
       <p class="connect-sub reveal">
         Open to freelance projects, internships, and interesting collaborations.
-        Reach out directly — I respond fast.
       </p>
 
-      <div class="connect-links reveal">
+      <!-- §6A — Email at H3 scale -->
+      <a href="mailto:m14ahlawat@gmail.com" class="connect-email reveal">
+        m14ahlawat@gmail.com
+      </a>
 
-        <a href="mailto:m14ahlawat@gmail.com" class="c-link">
-          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="1" y="3" width="14" height="10" rx="1"/><path d="M1 4l7 5 7-5"/>
-          </svg>
-          m14ahlawat@gmail.com
-        </a>
+      <!-- §6B — LinkedIn at H3 scale -->
+      <a href="https://www.linkedin.com/in/mudit-ahlawat-83746733b/" target="_blank" class="connect-linkedin reveal">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="1" width="14" height="14" rx="2"/>
+          <path d="M5 7v5M5 5v.01M8 12v-3a2 2 0 014 0v3M8 7v5"/>
+        </svg>
+        mudit-ahlawat
+      </a>
 
+      <!-- §6C — Availability line -->
+      <p class="connect-avail reveal">
+        Currently available for projects starting June 2026. I respond within 24 hours.
+      </p>
+
+      <!-- Secondary contact (phone + Instagram) — kept, smaller style -->
+      <div class="connect-secondary reveal">
         <a href="tel:+919416492464" class="c-link">
           <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M3 2h3l1.5 4-2 1.5a9 9 0 004 4L11 9.5l4 1.5v3a1 1 0 01-1 1A13 13 0 012 3a1 1 0 011-1z"/>
           </svg>
           +91 94164 92464
         </a>
-
         <a href="https://www.instagram.com/mudit_main/" target="_blank" class="c-link">
           <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="2" y="2" width="12" height="12" rx="3"/>
@@ -984,18 +1000,8 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
           </svg>
           @mudit_main
         </a>
-
-        <a href="https://www.linkedin.com/in/mudit-ahlawat-83746733b/" target="_blank" class="c-link">
-          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="1" y="1" width="14" height="14" rx="2"/>
-            <path d="M5 7v5M5 5v.01M8 12v-3a2 2 0 014 0v3M8 7v5"/>
-          </svg>
-          LinkedIn
-        </a>
-
       </div>
 
-      <!-- Footer — only here, not on any other section -->
       <div class="connect-foot reveal">
         <span>Mudit Ahlawat · 2026</span>
         <span>Ashoka University · CS-Ent · Econ Minor</span>
@@ -1003,19 +1009,11 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
       </div>
     </section>
 
-  </main><!-- /main -->
-</div><!-- /shell -->
+  </main>
+</div>
 
-
-<!-- ================================================================
-     JAVASCRIPT
-     - Tracks scroll position → highlights correct nav item + pill dot
-     - goto(id) — smooth scroll to any section
-     - Reveal animation on scroll
-     Don't edit unless something breaks.
-     ================================================================ -->
 <script>
-  const sections = ['hero','numbers','experience','skills','work','connect'];
+  const sections = ['hero','numbers','experience','testimonials','skills','work','connect'];
   const navBtns  = document.querySelectorAll('.nav-item');
   const pillDots = document.querySelectorAll('.pill-dot');
 
@@ -1023,7 +1021,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Update active nav item + pill dot based on which section is in view
+  // Active nav tracking
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1036,7 +1034,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   }, { threshold: 0.4 });
   sections.forEach(id => { const el=document.getElementById(id); if(el) io.observe(el); });
 
-  // Scroll-reveal
+  // Scroll reveal
   const ro = new IntersectionObserver(entries => {
     entries.forEach((e,i) => {
       if (e.isIntersecting) {
@@ -1046,7 +1044,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Touch support for case study panels on mobile
+  document.querySelectorAll('.cs-card').forEach(card => {
+    card.addEventListener('touchstart', () => card.classList.toggle('touch-open'), { passive: true });
+  });
 </script>
+
+<style>
+  .cs-card.touch-open .cs-panel { transform: translateY(0); pointer-events: auto; }
+</style>
 
 </body>
 </html>
