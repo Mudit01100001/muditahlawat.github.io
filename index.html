@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mudit Ahlawat — Creative Portfolio</title>
 
-<!-- ============================================================
-     SECTION 0 — LOGO REGISTRY
-     Edit logo paths here. All logo references on the page pull
-     from this single object. No path is ever hardcoded twice.
-     Place your logo files in a /logos/ folder in your repo.
-     ============================================================ -->
+<!-- ================================================================
+  SECTION 0 — EDIT YOUR CONTENT HERE
+  This is the only section you need to touch to update the site.
+  All other sections (filmstrip, work grid) auto-generate from this.
+  ================================================================ -->
 <script>
+
+/* ── LOGOS ─────────────────────────────────────────────────────────
+   Place logo files in a /logos/ folder next to this HTML file.
+   ─────────────────────────────────────────────────────────────────*/
 const LOGOS = {
   tedx:   { src: "logos/tedx.png",   alt: "TEDxAshoka University"  },
   bad:    { src: "logos/bad.png",    alt: "BAD Productions"        },
@@ -20,9 +23,116 @@ const LOGOS = {
   tjc:    { src: "logos/tjc.png",    alt: "The Jersey Collective"  },
   ashoka: { src: "logos/ashoka.png", alt: "Ashoka University"      },
 };
-</script>
 
-<!-- SECTION 1.1 — Flash prevention: runs before first paint -->
+/* ── PROJECTS ───────────────────────────────────────────────────────
+   Each object here drives BOTH the filmstrip AND the work grid.
+   Fields:
+     thumb      : path to your image (put files in /thumbs/)
+     tag        : category label shown on the card
+     title      : project title
+     contrib    : your specific role (1 line)
+     desc       : short description (2–3 sentences)
+     logo       : key from LOGOS above, or null for personal badge "M"
+     link       : external URL (set to "#" to leave unlinked)
+     caseStudy  : optional — add brief/role/result to get the
+                  hover-reveal case study panel. Remove the key
+                  entirely for a plain card.
+   ─────────────────────────────────────────────────────────────────*/
+const PROJECTS = [
+  {
+    thumb:   "thumbs/tedx-thumb.jpg",
+    tag:     "Event Video Production",
+    title:   "TEDxAshoka University 2026",
+    contrib: "Shot, directed and edited",
+    desc:    "Head of video production for the flagship TEDx event. Planned coverage, ran the set, led post across all promotional and event-day content.",
+    logo:    "tedx",
+    link:    "https://www.instagram.com/tedxashokauniv/reel/DHqrf_boYAf/",
+    caseStudy: {
+      brief:  "Deliver full video coverage and promo content for a 500-person campus event without an external agency.",
+      role:   "Built the shot list, directed on set, operated camera, and managed 3 editors through the entire post pipeline.",
+      result: "130,000+ total views. Delivered under a 3-week production window with zero agency budget.",
+    },
+  },
+  {
+    thumb:   "thumbs/bclub-thumb.jpg",
+    tag:     "Social Campaign Reel",
+    title:   "Ashoka Business Club Campaign",
+    contrib: "Concept, shoot and edit — solo",
+    desc:    "One-day turnaround reel conceived, shot, and edited end-to-end for a club recruitment push.",
+    logo:    "bclub",
+    link:    "https://www.instagram.com/ashokabusinessclub/reel/DC2GaCftWkP/",
+    caseStudy: {
+      brief:  "Create a fast, social-native reel to drive applications for the club.",
+      role:   "Wrote the concept, handled production solo, and executed the final cut for Instagram.",
+      result: "55,000+ organic views from a single reel, completed from idea to export in one day.",
+    },
+  },
+  {
+    thumb:   "thumbs/tjc-thumb.jpg",
+    tag:     "Brand & Event Visuals",
+    title:   "The Jersey Collective",
+    contrib: "Creative direction and art direction",
+    desc:    "Visual system, graphics, and product shoot direction for pop-up events and merch drops.",
+    logo:    "tjc",
+    link:    "#",
+  },
+  {
+    thumb:   "thumbs/humaine-thumb.jpg",
+    tag:     "Short Film",
+    title:   "HUMAINE (2024)",
+    contrib: "Co-directed, shot and edited",
+    desc:    "Futuristic concept short film produced under BAD Productions with zero external budget.",
+    logo:    "bad",
+    link:    "https://www.youtube.com/watch?v=HqmPBNmKEhc",
+    caseStudy: {
+      brief:  "Build a grounded sci-fi proof-of-concept film on a zero budget.",
+      role:   "Co-led direction, cinematography and post-production as part of a small core team.",
+      result: "Contributed to 90,000+ combined views across the BAD Productions catalogue.",
+    },
+  },
+  {
+    thumb:   "thumbs/hyst-thumb.jpg",
+    tag:     "Web Series",
+    title:   "Have You Seen Tara",
+    contrib: "Director of photography",
+    desc:    "Cinematography on an ongoing narrative series — visual language, shot design, and on-set operation.",
+    logo:    "hyst",
+    link:    "#",
+  },
+  {
+    thumb:   "thumbs/apple-thumb.jpg",
+    tag:     "3D · Product Visualization",
+    title:   "Apple Watch Concept Render",
+    contrib: "3D modelled, lit and rendered",
+    desc:    "Hard surface modeling and product lighting exercise in Blender with photorealistic rendering.",
+    logo:    null,
+    link:    "https://www.instagram.com/mudit_main/reel/C4E3biKvjqd/",
+  },
+  {
+    thumb:   "thumbs/3d-thumb.jpg",
+    tag:     "3D · Hard Surface Modeling",
+    title:   "Hard Surface Studies",
+    contrib: "Mechanical asset modeling and lighting",
+    desc:    "Mechanical asset experiments in Blender — clean topology, custom shading, and moody key lighting.",
+    logo:    null,
+    link:    "https://www.instagram.com/mudit_main/reel/C61VH76viEY/",
+  },
+  {
+    thumb:   "thumbs/dr2-thumb.jpg",
+    tag:     "Short Film",
+    title:   "Dear Roommate 2",
+    contrib: "Direction, cinematography and edit",
+    desc:    "Character-driven short film exploring themes of connection and memory with a minimal cast and locations.",
+    logo:    null,
+    link:    "https://www.youtube.com/watch?v=uCRqQVYkFnI",
+  },
+];
+
+</script>
+<!-- ================================================================
+  END OF EDITABLE CONTENT
+  ================================================================ -->
+
 <script>
 (function() {
   const saved = localStorage.getItem('theme');
@@ -36,617 +146,308 @@ const LOGOS = {
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ================================================================
-   SECTION 1.2 — CSS TOKEN SYSTEM
-   WCAG contrast ratios — dark theme:
-     --text-primary  #ede9e1  vs #0c0b0a  → 19.8:1 AAA ✓
-     --text-secondary #a09890 vs #0c0b0a  →  8.4:1 AA  ✓
-     --accent        #c9b99b  vs #0c0b0a  → 12.9:1 AA  ✓
-   WCAG contrast ratios — light theme:
-     --text-primary  #111111  vs #F9F9F7  → 18.1:1 AAA ✓
-     --text-secondary #555555 vs #F9F9F7  →  7.4:1 AAA ✓
-     --accent        #6b5a3e  vs #F9F9F7  →  5.9:1 AA  ✓
-     context text    #666666  vs #F9F9F7  →  5.6:1 AA  ✓
-   ================================================================ */
-
 :root[data-theme="dark"] {
-  --bg-primary:       #0c0b0a;
-  --bg-secondary:     #111010;
-  --bg-card:          #0c0b0a;
-  --bg-surface:       rgba(237,233,225,0.06);
-  --text-primary:     #ede9e1;
-  --text-secondary:   #a09890;
-  --accent:           #c9b99b;
-  --border:           rgba(237,233,225,0.10);
-  --bg-always-dark:   #0f0f0f;
-  --text-always-light:#f0f0f0;
-  --avail-green:      #4ade80;
-  --cs-panel-bg:      rgba(12,11,10,0.97);
-  --logo-filter:      brightness(0) invert(1);
-  --logo-opacity:     0.75;
-  --testi-hover:      #111010;
+  --bg-primary:#0c0b0a; --bg-secondary:#111010; --bg-card:#0c0b0a;
+  --bg-surface:rgba(237,233,225,0.06); --text-primary:#ede9e1;
+  --text-secondary:#a09890; --accent:#c9b99b; --border:rgba(237,233,225,0.10);
+  --bg-always-dark:#0f0f0f; --text-always-light:#f0f0f0; --avail-green:#4ade80;
+  --cs-panel-bg:rgba(12,11,10,0.97); --logo-filter:brightness(0) invert(1);
+  --logo-opacity:0.75;
 }
-
 :root[data-theme="light"] {
-  --bg-primary:       #F9F9F7;
-  --bg-secondary:     #EFEFED;
-  --bg-card:          #F9F9F7;
-  --bg-surface:       rgba(0,0,0,0.03);
-  --text-primary:     #111111;
-  --text-secondary:   #555555;
-  --accent:           #6b5a3e;
-  --border:           #DDDDDD;
-  --bg-always-dark:   #0f0f0f;
-  --text-always-light:#f0f0f0;
-  --avail-green:      #1A7A3C;
-  --cs-panel-bg:      rgba(249,249,247,0.97);
-  --logo-filter:      brightness(0);
-  --logo-opacity:     0.65;
-  --testi-hover:      #E8E8E6;
+  --bg-primary:#F9F9F7; --bg-secondary:#EFEFED; --bg-card:#F9F9F7;
+  --bg-surface:rgba(0,0,0,0.03); --text-primary:#111111;
+  --text-secondary:#555555; --accent:#6b5a3e; --border:#DDDDDD;
+  --bg-always-dark:#0f0f0f; --text-always-light:#f0f0f0; --avail-green:#1A7A3C;
+  --cs-panel-bg:rgba(249,249,247,0.97); --logo-filter:brightness(0);
+  --logo-opacity:0.65;
 }
-
-/* System preference fallbacks (no manual override saved) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-primary: #0c0b0a; --bg-secondary: #111010; --bg-card: #0c0b0a;
-    --bg-surface: rgba(237,233,225,0.06); --text-primary: #ede9e1;
-    --text-secondary: #a09890; --accent: #c9b99b; --border: rgba(237,233,225,0.10);
-    --bg-always-dark: #0f0f0f; --text-always-light: #f0f0f0; --avail-green: #4ade80;
-    --cs-panel-bg: rgba(12,11,10,0.97); --logo-filter: brightness(0) invert(1);
-    --logo-opacity: 0.75; --testi-hover: #111010;
+    --bg-primary:#0c0b0a; --bg-secondary:#111010; --bg-card:#0c0b0a;
+    --bg-surface:rgba(237,233,225,0.06); --text-primary:#ede9e1;
+    --text-secondary:#a09890; --accent:#c9b99b; --border:rgba(237,233,225,0.10);
+    --bg-always-dark:#0f0f0f; --text-always-light:#f0f0f0; --avail-green:#4ade80;
+    --cs-panel-bg:rgba(12,11,10,0.97); --logo-filter:brightness(0) invert(1); --logo-opacity:0.75;
   }
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --bg-primary: #F9F9F7; --bg-secondary: #EFEFED; --bg-card: #F9F9F7;
-    --bg-surface: rgba(0,0,0,0.03); --text-primary: #111111;
-    --text-secondary: #555555; --accent: #6b5a3e; --border: #DDDDDD;
-    --bg-always-dark: #0f0f0f; --text-always-light: #f0f0f0; --avail-green: #1A7A3C;
-    --cs-panel-bg: rgba(249,249,247,0.97); --logo-filter: brightness(0);
-    --logo-opacity: 0.65; --testi-hover: #E8E8E6;
+    --bg-primary:#F9F9F7; --bg-secondary:#EFEFED; --bg-card:#F9F9F7;
+    --bg-surface:rgba(0,0,0,0.03); --text-primary:#111111;
+    --text-secondary:#555555; --accent:#6b5a3e; --border:#DDDDDD;
+    --bg-always-dark:#0f0f0f; --text-always-light:#f0f0f0; --avail-green:#1A7A3C;
+    --cs-panel-bg:rgba(249,249,247,0.97); --logo-filter:brightness(0); --logo-opacity:0.65;
   }
 }
-
-/* GOLDEN RATIO TYPE SCALE — φ=1.618, base=16px */
 :root {
-  --fs-cap:    10px;
-  --fs-body:   16px;
-  --fs-h3:     26px;
-  --fs-h2:     42px;
-  --fs-h1:     clamp(42px, 6.5vw, 68px);
-  --sidebar-w: 200px;
-  --gutter:    72px;
+  --fs-cap:10px; --fs-body:16px; --fs-h3:26px; --fs-h2:42px;
+  --fs-h1:clamp(42px,6.5vw,68px); --sidebar-w:200px; --gutter:72px;
+  /* ── FILMSTRIP FRAME SIZE ─────────────────────────────────────
+     Adjust --film-thumb-w and --film-thumb-h until your thumbnails
+     sit neatly inside the white frames of your filmstrip image.
+     ────────────────────────────────────────────────────────────*/
+  --film-height:160px;
+  --film-thumb-w:240px;
+  --film-thumb-h:135px;
+  --film-thumb-gap:12px;
 }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0;
+  transition:background-color 300ms ease,color 200ms ease,border-color 200ms ease; }
+.work-card:hover,.cs-card:hover,.btn-pill:hover,.btn-ghost:hover,
+.thumb-line,.card-ext,.cs-panel { transition:none !important; }
+.thumb-line  { transition:width 0.45s ease !important; }
+.card-ext    { transition:opacity 0.3s,transform 0.3s !important; }
+.cs-panel    { transition:transform 0.3s cubic-bezier(0.16,1,0.3,1) !important; }
+.btn-pill    { transition:background 0.3s !important; }
+.btn-ghost   { transition:border-color 0.3s,color 0.3s !important; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg-primary); color:var(--text-primary);
+  font-family:'Lora',serif; font-size:var(--fs-body); line-height:1.7; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+.logo-img { filter:var(--logo-filter); opacity:var(--logo-opacity);
+  transition:opacity 0.3s !important; display:block; object-fit:contain; }
+.logo-img:hover { opacity:calc(var(--logo-opacity) + 0.2); }
+.always-dark { background-color:var(--bg-always-dark) !important; color:var(--text-always-light) !important; }
+.always-dark .sec-label,.always-dark .card-tag,.always-dark .cs-field { color:var(--accent); }
+.always-dark .card-title { color:var(--text-always-light); }
+.always-dark .card-desc  { color:rgba(240,240,240,0.55); }
+.always-dark .work-card,.always-dark .cs-card { background:var(--bg-always-dark); }
+.always-dark .work-card:hover,.always-dark .cs-card:hover { background:#161616; }
+.always-dark .card-body  { border-top-color:rgba(255,255,255,0.08); }
+.always-dark .cs-panel   { background:rgba(10,10,10,0.97); border-top-color:var(--accent); }
+.always-dark .cs-val     { color:#ede9e1; }
+.theme-toggle { position:fixed; top:20px; right:20px; z-index:999; width:36px; height:36px;
+  border-radius:50%; background:var(--bg-secondary); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;
+  transition:background-color 300ms ease,border-color 200ms ease !important; }
+.theme-toggle:hover { border-color:var(--accent); }
+.toggle-icon { transition:transform 300ms ease,opacity 150ms ease !important; }
+.theme-toggle.spinning .toggle-icon { transform:rotate(180deg); opacity:0; }
+.shell { display:flex; min-height:100vh; }
+.sidebar { position:fixed; top:0; left:0; width:var(--sidebar-w); height:100vh;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:48px 36px; border-right:1px solid var(--border); background:var(--bg-primary); z-index:100; }
+.sidebar-logo { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h3);
+  font-weight:600; letter-spacing:1px; }
+.sidebar-logo span { color:var(--accent); }
+.nav-items { display:flex; flex-direction:column; gap:6px; }
+.nav-item { display:flex; align-items:center; gap:12px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--fs-cap); letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--text-secondary); cursor:pointer; padding:6px 0; background:none; border:none; text-align:left; }
+.nav-item:hover { color:var(--text-primary); }
+.nav-item.active { color:var(--accent); }
+.nav-dot { width:6px; height:6px; border-radius:50%; border:1px solid currentColor; flex-shrink:0; }
+.nav-item.active .nav-dot { background:var(--accent); border-color:var(--accent); }
+.sidebar-foot { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  color:var(--text-secondary); line-height:1.8; opacity:0.6; }
+.main { margin-left:var(--sidebar-w); flex:1; border-left:1px solid var(--border); }
+.section { min-height:100vh; padding:80px var(--gutter); display:flex; flex-direction:column;
+  justify-content:center; border-bottom:1px solid var(--border); position:relative; background:var(--bg-primary); }
+.sec-label { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:3px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:40px;
+  display:flex; align-items:center; gap:14px; }
+.sec-label::after { content:''; height:1px; width:40px; background:var(--accent); opacity:0.4; }
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.65s ease,transform 0.65s ease !important; }
+.reveal.in { opacity:1; transform:none; }
 
-/* ================================================================
-   SECTION 1.5 — Global theme transition
-   ================================================================ */
-*, *::before, *::after {
-  box-sizing: border-box; margin: 0; padding: 0;
-  transition: background-color 300ms ease, color 200ms ease, border-color 200ms ease;
-}
-/* Carve-outs: keep hover/interaction animations sharp */
-.work-card:hover, .cs-card:hover,
-.btn-pill:hover, .btn-ghost:hover,
-.thumb-line, .card-ext,
-.cs-panel { transition: none !important; }
-/* Re-apply only the interaction transitions these elements need */
-.thumb-line        { transition: width 0.45s ease !important; }
-.card-ext          { transition: opacity 0.3s, transform 0.3s !important; }
-.cs-panel          { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1) !important; }
-.btn-pill          { transition: background 0.3s !important; }
-.btn-ghost         { transition: border-color 0.3s, color 0.3s !important; }
+/* HERO */
+#hero { justify-content:flex-end; padding-bottom:220px; overflow:hidden; }
+.hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:3px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:16px;
+  opacity:0; animation:up 0.7s 0.1s forwards; }
+.hero-name { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h1); font-weight:300;
+  line-height:0.92; letter-spacing:-1px; opacity:0; animation:up 0.7s 0.25s forwards; }
+.hero-name em { font-style:italic; color:var(--accent); }
+.avail-badge { display:inline-flex; align-items:center; gap:8px; margin-top:20px;
+  font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--text-secondary); opacity:0; animation:up 0.7s 0.38s forwards; }
+.avail-dot { width:7px; height:7px; border-radius:50%; background:var(--avail-green);
+  flex-shrink:0; animation:pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+.hero-position { margin-top:24px; font-size:var(--fs-body); color:var(--text-secondary);
+  max-width:500px; line-height:1.75; opacity:0; animation:up 0.7s 0.5s forwards; }
+.hero-primary-cta { margin-top:32px; opacity:0; animation:up 0.7s 0.65s forwards; }
+.btn-pill { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:2px;
+  text-transform:uppercase; padding:14px 32px; border-radius:100px; background:var(--accent);
+  color:var(--bg-primary); border:none; cursor:pointer; display:inline-block; }
+.btn-pill:hover { background:var(--text-primary); }
+.hero-secondary-cta { display:flex; gap:20px; margin-top:16px; flex-wrap:wrap;
+  opacity:0; animation:up 0.7s 0.78s forwards; }
+.btn-ghost { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:2px;
+  text-transform:uppercase; padding:13px 26px; cursor:pointer; border:1px solid var(--border);
+  color:var(--text-secondary); background:none; }
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+@keyframes up { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:none;} }
 
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Lora', serif;
-  font-size: var(--fs-body);
-  line-height: 1.7;
-  overflow-x: hidden;
+/* FILMSTRIP */
+.filmstrip-wrap {
+  position:absolute; bottom:0; left:0; right:0;
+  height:var(--film-height); overflow:hidden;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center;
 }
-a { text-decoration: none; color: inherit; }
+.filmstrip-wrap::before,.filmstrip-wrap::after {
+  content:''; position:absolute; top:0; bottom:0;
+  width:120px; z-index:3; pointer-events:none;
+}
+.filmstrip-wrap::before { left:0;  background:linear-gradient(to right,var(--bg-primary),transparent); }
+.filmstrip-wrap::after  { right:0; background:linear-gradient(to left, var(--bg-primary),transparent); }
+.filmstrip-track {
+  display:flex; align-items:center; height:100%;
+  width:max-content; gap:var(--film-thumb-gap);
+  padding:0 var(--film-thumb-gap);
+  animation:film-scroll 30s linear infinite;
+  will-change:transform;
+}
+.filmstrip-track:hover { animation-play-state:paused; cursor:pointer; }
+@keyframes film-scroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+.film-thumb-wrap {
+  flex-shrink:0;
+  width:var(--film-thumb-w); height:var(--film-thumb-h);
+  border:1px solid var(--accent);
+  overflow:hidden; position:relative;
+  opacity:0.75; transition:opacity 0.3s;
+}
+.film-thumb-wrap:hover { opacity:1; }
+.film-thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
 
-/* Logo images — all controlled by CSS vars from registry */
-.logo-img {
-  filter: var(--logo-filter);
-  opacity: var(--logo-opacity);
-  transition: opacity 0.3s !important;
-  display: block;
-  object-fit: contain;
-}
-.logo-img:hover { opacity: calc(var(--logo-opacity) + 0.2); }
+/* TRUST */
+#trust { min-height:auto; padding:48px var(--gutter); justify-content:center;
+  align-items:center; background:var(--bg-primary); }
+.trust-logos { display:flex; align-items:center; justify-content:center; gap:56px; flex-wrap:wrap; }
+.trust-logo-wrap img { height:64px; width:auto; max-width:120px; }
 
-/* ================================================================
-   SECTION 1.4 — Always-dark containers
-   Work section + any video/render container
-   ================================================================ */
-.always-dark {
-  background-color: var(--bg-always-dark) !important;
-  color: var(--text-always-light) !important;
-}
-.always-dark .sec-label { color: var(--accent); }
-.always-dark .card-tag  { color: var(--accent); }
-.always-dark .card-title { color: var(--text-always-light); }
-.always-dark .card-desc  { color: rgba(240,240,240,0.55); }
-.always-dark .work-grid  { background: rgba(255,255,255,0.06); }
-.always-dark .work-card,
-.always-dark .cs-card    { background: var(--bg-always-dark); }
-.always-dark .work-card:hover,
-.always-dark .cs-card:hover { background: #161616; }
-.always-dark .card-body  { border-top-color: rgba(255,255,255,0.08); }
-.always-dark .cs-panel   { background: rgba(10,10,10,0.97); border-top-color: var(--accent); }
-.always-dark .cs-field   { color: var(--accent); }
-.always-dark .cs-val     { color: #ede9e1; }
+/* NUMBERS */
+#numbers { justify-content:center; }
+.stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); }
+.stat-cell { background:var(--bg-card); padding:44px 36px; }
+.stat-cell:hover { background:var(--bg-secondary); }
+.stat-num { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h2); font-weight:600; line-height:1; }
+.stat-num span { color:var(--accent); font-style:italic; }
+.stat-desc { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--text-secondary); margin-top:8px; line-height:1.5; }
+.stat-context { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  color:var(--text-secondary); opacity:0.55; margin-top:8px; line-height:1.5; font-style:italic; letter-spacing:0.5px; }
 
-/* ================================================================
-   SECTION 1.6 — Theme toggle button (fixed top-right)
-   ================================================================ */
-.theme-toggle {
-  position: fixed; top: 20px; right: 20px; z-index: 999;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--bg-secondary); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 16px; line-height: 1;
-  overflow: hidden;
-  transition: background-color 300ms ease, border-color 200ms ease !important;
-}
-.theme-toggle:hover { border-color: var(--accent); }
-.toggle-icon {
-  display: inline-block;
-  transition: transform 300ms ease, opacity 150ms ease !important;
-}
-.theme-toggle.spinning .toggle-icon {
-  transform: rotate(180deg);
-  opacity: 0;
-}
-@media (max-width: 768px) {
-  .theme-toggle { width: 30px; height: 30px; font-size: 13px; top: 14px; right: 14px; }
-}
+/* EXPERIENCE */
+#experience { justify-content:flex-start; padding-top:100px; }
+.exp-row { display:grid; grid-template-columns:80px 1fr 120px; gap:28px;
+  align-items:start; padding:28px 0; border-bottom:1px solid var(--border); }
+.exp-row:first-child { border-top:1px solid var(--border); }
+.exp-row:hover { background:var(--bg-surface); margin:0 calc(-1 * var(--gutter));
+  padding-left:var(--gutter); padding-right:var(--gutter); }
+.exp-logo-wrap { display:flex; align-items:flex-start; padding-top:6px; }
+.exp-logo-wrap img { height:44px; width:auto; max-width:100px; }
+.exp-role { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h3); font-weight:400; line-height:1.2; }
+.exp-org-name { font-size:var(--fs-body); color:var(--text-secondary); margin-top:4px; }
+.exp-detail { font-size:var(--fs-body); color:var(--text-secondary); margin-top:8px; line-height:1.7; }
+.exp-year { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  color:var(--text-secondary); text-align:right; opacity:0.6; letter-spacing:1px; padding-top:8px; }
 
-/* ================================================================
-   LAYOUT
-   ================================================================ */
-.shell { display: flex; min-height: 100vh; }
+/* SKILLS */
+#skills { justify-content:center; }
+.skill-groups { display:flex; flex-direction:column; gap:36px; }
+.skill-group-label { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.chip-row { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:1px;
+  padding:8px 16px; border:1px solid var(--border); color:var(--text-secondary); cursor:default; }
+.chip:hover { border-color:var(--accent); color:var(--text-primary); }
+.chip.primary { border-color:var(--accent); opacity:0.7; color:var(--text-primary); }
 
-.sidebar {
-  position: fixed; top: 0; left: 0;
-  width: var(--sidebar-w); height: 100vh;
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: 48px 36px;
-  border-right: 1px solid var(--border);
-  background: var(--bg-primary);
-  z-index: 100;
-}
-.sidebar-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3); font-weight: 600; letter-spacing: 1px;
-  color: var(--text-primary);
-}
-.sidebar-logo span { color: var(--accent); }
-.nav-items { display: flex; flex-direction: column; gap: 6px; }
-.nav-item {
-  display: flex; align-items: center; gap: 12px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--text-secondary); cursor: pointer; padding: 6px 0;
-  background: none; border: none; text-align: left;
-}
-.nav-item:hover { color: var(--text-primary); }
-.nav-item.active { color: var(--accent); }
-.nav-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  border: 1px solid currentColor; flex-shrink: 0;
-}
-.nav-item.active .nav-dot { background: var(--accent); border-color: var(--accent); }
-.sidebar-foot {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); color: var(--text-secondary); line-height: 1.8; opacity: 0.6;
-}
+/* WORK (generated by JS) */
+#work { justify-content:flex-start; padding-top:100px; }
+.work-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1px; }
+.work-card,.cs-card { overflow:hidden; display:flex; flex-direction:column; position:relative; }
+.work-card:hover .thumb-line,.cs-card:hover .thumb-line { width:100%; }
+.work-card:hover .card-ext,.cs-card:hover .card-ext { opacity:1; transform:translate(0,0); }
+.card-badge { position:absolute; top:12px; left:12px; z-index:2; width:28px; height:28px;
+  border-radius:50%; border:1.5px solid rgba(255,255,255,0.18); overflow:hidden;
+  display:flex; align-items:center; justify-content:center; background:rgba(15,15,15,0.7); }
+.card-badge img { width:100%; height:100%; object-fit:contain; filter:brightness(0) invert(1); opacity:0.8; }
+.card-badge-m { position:absolute; top:12px; left:12px; z-index:2; width:28px; height:28px;
+  border-radius:50%; border:1.5px solid var(--accent); background:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-size:13px; font-weight:600; color:var(--bg-always-dark); }
+.card-thumb { aspect-ratio:16/9; background:#111; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; }
+.card-thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.card-ph { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h3);
+  font-weight:300; font-style:italic; color:rgba(237,233,225,0.07); }
+.thumb-line { position:absolute; bottom:0; left:0; height:1px; width:0; background:var(--accent); }
+.card-ext { position:absolute; top:12px; right:12px; width:28px; height:28px;
+  border:1px solid var(--accent); display:flex; align-items:center; justify-content:center;
+  font-size:13px; color:var(--accent); opacity:0; transform:translate(6px,-6px); }
+.card-body { padding:18px 20px 22px; flex:1; border-top:1px solid rgba(255,255,255,0.08); }
+.card-tag { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+.card-title { font-family:'Lora',serif; font-size:var(--fs-body); font-weight:500; line-height:1.4; }
+.card-contrib { font-size:12px; opacity:0.65; margin-top:4px; line-height:1.5;
+  font-family:'IBM Plex Mono',monospace; letter-spacing:0.5px; }
+.card-desc { font-size:14px; margin-top:6px; line-height:1.6; }
+.cs-panel { position:absolute; bottom:0; left:0; right:0; background:var(--cs-panel-bg);
+  border-top:1px solid var(--accent); padding:20px 20px 22px;
+  transform:translateY(100%); pointer-events:none; }
+.cs-card:hover .cs-panel,.cs-card:focus-within .cs-panel { transform:translateY(0); pointer-events:auto; }
+.cs-row { margin-bottom:10px; }
+.cs-row:last-child { margin-bottom:0; }
+.cs-field { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:2px; }
+.cs-val { font-size:13px; color:#ede9e1; line-height:1.55; }
 
-.main { margin-left: var(--sidebar-w); flex: 1; border-left: 1px solid var(--border); }
-
-.section {
-  min-height: 100vh; padding: 80px var(--gutter);
-  display: flex; flex-direction: column; justify-content: center;
-  border-bottom: 1px solid var(--border); position: relative;
-  background: var(--bg-primary);
+/* CONNECT */
+#connect { justify-content:center; border-bottom:none; }
+.connect-heading { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h2); font-weight:300;
+  line-height:1.15; max-width:560px; margin-bottom:12px; }
+.connect-heading em { font-style:italic; color:var(--accent); }
+.connect-sub { font-size:var(--fs-body); color:var(--text-secondary); max-width:400px; line-height:1.75; margin-bottom:36px; }
+.connect-email { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h3); font-weight:400;
+  color:var(--accent); display:block; margin-bottom:12px; }
+.connect-email:hover { opacity:0.75; }
+.connect-linkedin { font-family:'Cormorant Garamond',serif; font-size:var(--fs-h3); font-weight:400;
+  color:var(--accent); display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+.connect-linkedin:hover { opacity:0.75; }
+.connect-linkedin svg { width:20px; height:20px; flex-shrink:0; }
+.connect-avail { font-size:var(--fs-body); color:var(--text-secondary); opacity:0.5; margin-bottom:48px; line-height:1.7; }
+.connect-secondary { display:flex; flex-direction:column; gap:10px; margin-bottom:48px; }
+.c-link { display:flex; align-items:center; gap:16px; font-family:'IBM Plex Mono',monospace;
+  font-size:var(--fs-body); color:var(--text-secondary); width:fit-content;
+  padding-bottom:2px; border-bottom:1px solid transparent; }
+.c-link:hover { color:var(--text-primary); border-bottom-color:var(--accent); }
+.c-icon { width:16px; height:16px; opacity:0.5; flex-shrink:0; }
+.c-link:hover .c-icon { opacity:1; }
+.connect-foot { padding-top:48px; border-top:1px solid var(--border); display:flex; gap:32px;
+  flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap);
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--text-secondary); opacity:0.5; }
+.pill-nav { display:none; position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  background:rgba(20,19,18,0.92); backdrop-filter:blur(12px); border:1px solid var(--border);
+  border-radius:100px; padding:10px 20px; z-index:200; gap:6px; }
+.pill-dot { width:6px; height:6px; border-radius:50%; background:var(--text-secondary); opacity:0.4; cursor:pointer; }
+.pill-dot.active { background:var(--accent); opacity:1; width:20px; border-radius:10px; }
+@media (max-width:768px) {
+  :root { --sidebar-w:0px; --gutter:28px; --film-height:120px; --film-thumb-w:180px; --film-thumb-h:100px; --film-thumb-gap:8px; }
+  .sidebar { display:none; } .main { margin-left:0; border-left:none; }
+  .section { padding:60px var(--gutter) 80px; } .pill-nav { display:flex; }
+  .stats-grid { grid-template-columns:1fr; }
+  .exp-row { grid-template-columns:48px 1fr; gap:14px; padding:22px 0; }
+  .exp-row:hover { margin:0; padding-left:0; padding-right:0; }
+  .exp-year { grid-column:2; text-align:left; padding-top:0; }
+  .connect-foot { flex-direction:column; gap:8px; }
+  .trust-logos { gap:28px; display:grid; grid-template-columns:1fr 1fr; justify-items:center; }
+  .cs-panel { position:static; transform:none; border-top:1px solid var(--accent); padding-top:16px; }
+  #hero { padding-bottom:160px; }
 }
-.sec-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 3px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 40px;
-  display: flex; align-items: center; gap: 14px;
-}
-.sec-label::after { content: ''; height: 1px; width: 40px; background: var(--accent); opacity: 0.4; }
-
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease !important; }
-.reveal.in { opacity: 1; transform: none; }
-
-/* ================================================================
-   HERO
-   ================================================================ */
-#hero { justify-content: flex-end; padding-bottom: 96px; overflow: hidden; }
-
-.hero-eyebrow {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 3px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 16px;
-  opacity: 0; animation: up 0.7s 0.1s forwards;
-}
-.hero-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h1); font-weight: 300; line-height: 0.92; letter-spacing: -1px;
-  color: var(--text-primary);
-  opacity: 0; animation: up 0.7s 0.25s forwards;
-}
-.hero-name em { font-style: italic; color: var(--accent); }
-
-.avail-badge {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--text-secondary);
-  opacity: 0; animation: up 0.7s 0.38s forwards;
-}
-.avail-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--avail-green); flex-shrink: 0;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
-
-.hero-position {
-  margin-top: 24px; font-size: var(--fs-body); color: var(--text-secondary);
-  max-width: 500px; line-height: 1.75;
-  opacity: 0; animation: up 0.7s 0.5s forwards;
-}
-.hero-primary-cta { margin-top: 32px; opacity: 0; animation: up 0.7s 0.65s forwards; }
-.btn-pill {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
-  padding: 14px 32px; border-radius: 100px;
-  background: var(--accent); color: var(--bg-primary);
-  border: none; cursor: pointer; display: inline-block;
-}
-.btn-pill:hover { background: var(--text-primary); }
-.hero-secondary-cta {
-  display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap;
-  opacity: 0; animation: up 0.7s 0.78s forwards;
-}
-.btn-ghost {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
-  padding: 13px 26px; cursor: pointer; border: none;
-  border: 1px solid var(--border); color: var(--text-secondary); background: none;
-}
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-.hero-bg {
-  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(200px, 28vw, 420px); font-weight: 600;
-  color: var(--bg-surface); line-height: 1; pointer-events: none; user-select: none;
-}
-@keyframes up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
-
-/* ================================================================
-   TRUST STRIP
-   ================================================================ */
-#trust {
-  min-height: auto; padding: 48px var(--gutter);
-  justify-content: center; align-items: center;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-primary);
-}
-.trust-logos {
-  display: flex; align-items: center; justify-content: center;
-  gap: 56px; flex-wrap: wrap; width: 100%;
-}
-.trust-logo-wrap { display: flex; align-items: center; justify-content: center; }
-.trust-logo-wrap img { height: 28px; width: auto; max-width: 120px; }
-
-/* ================================================================
-   BY THE NUMBERS
-   ================================================================ */
-#numbers { justify-content: center; }
-.stats-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1px; background: var(--border);
-}
-.stat-cell { background: var(--bg-card); padding: 44px 36px; }
-.stat-cell:hover { background: var(--bg-secondary); }
-.stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h2); font-weight: 600; line-height: 1; color: var(--text-primary);
-}
-.stat-num span { color: var(--accent); font-style: italic; }
-.stat-desc {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--text-secondary); margin-top: 8px; line-height: 1.5;
-}
-.stat-context {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); color: var(--text-secondary);
-  opacity: 0.55; margin-top: 8px; line-height: 1.5;
-  font-style: italic; text-transform: none; letter-spacing: 0.5px;
-}
-
-/* ================================================================
-   SECTION 2 — ROLES & EXPERIENCE
-   Left col: logo image (from registry)
-   Right col top: role title → org name (secondary) → detail → year col
-   ================================================================ */
-#experience { justify-content: flex-start; padding-top: 100px; }
-.exp-row {
-  display: grid; grid-template-columns: 80px 1fr 120px;
-  gap: 28px; align-items: start; padding: 28px 0;
-  border-bottom: 1px solid var(--border);
-}
-.exp-row:first-child { border-top: 1px solid var(--border); }
-.exp-row:hover { background: var(--bg-surface); margin: 0 calc(-1 * var(--gutter)); padding-left: var(--gutter); padding-right: var(--gutter); }
-
-/* Logo in left column */
-.exp-logo-wrap {
-  display: flex; align-items: flex-start; padding-top: 6px;
-}
-.exp-logo-wrap img {
-  height: 28px; width: auto; max-width: 72px;
-}
-
-/* Right panel: role → org name → detail */
-.exp-role {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3); font-weight: 400; color: var(--text-primary); line-height: 1.2;
-}
-/* SECTION 2.2 — org name as text, below role, secondary color, body scale */
-.exp-org-name {
-  font-size: var(--fs-body); color: var(--text-secondary);
-  margin-top: 4px; line-height: 1.4;
-}
-.exp-detail { font-size: var(--fs-body); color: var(--text-secondary); margin-top: 8px; line-height: 1.7; }
-.exp-year {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); color: var(--text-secondary);
-  text-align: right; opacity: 0.6; letter-spacing: 1px; padding-top: 8px;
-}
-
-/* ================================================================
-   TESTIMONIALS — unchanged per Section 4 of brief
-   ================================================================ */
-#testimonials { justify-content: center; }
-.testi-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1px; background: var(--border);
-}
-.testi-card { background: var(--bg-card); padding: 36px 32px; }
-.testi-card:hover { background: var(--testi-hover); }
-.testi-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-body); font-style: italic;
-  color: var(--text-primary); line-height: 1.75; margin-bottom: 20px;
-}
-.testi-quote::before { content: '\201C'; color: var(--accent); margin-right: 2px; }
-.testi-quote::after  { content: '\201D'; color: var(--accent); margin-left: 2px; }
-.testi-attr {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--text-secondary); opacity: 0.6; line-height: 1.6;
-}
-
-/* ================================================================
-   SKILLS
-   ================================================================ */
-#skills { justify-content: center; }
-.skill-groups { display: flex; flex-direction: column; gap: 36px; }
-.skill-group-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 14px;
-}
-.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1px; padding: 8px 16px;
-  border: 1px solid var(--border); color: var(--text-secondary); cursor: default;
-}
-.chip:hover { border-color: var(--accent); color: var(--text-primary); }
-.chip.primary { border-color: var(--accent); opacity: 0.7; color: var(--text-primary); }
-
-/* ================================================================
-   SECTION 3 — WORK & PROJECTS (always-dark, reordered, badges)
-   ================================================================ */
-#work { justify-content: flex-start; padding-top: 100px; }
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1px;
-}
-.work-card {
-  overflow: hidden; display: flex; flex-direction: column; position: relative;
-}
-.work-card:hover .thumb-line { width: 100%; }
-.work-card:hover .card-ext { opacity: 1; transform: translate(0,0); }
-
-/* SECTION 3.2 — Logo badge: 28×28px circle, top-left of thumb */
-.card-badge {
-  position: absolute; top: 12px; left: 12px; z-index: 2;
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.18);
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-  background: rgba(15,15,15,0.7);
-}
-.card-badge img {
-  width: 100%; height: 100%; object-fit: contain;
-  filter: brightness(0) invert(1); opacity: 0.8;
-}
-/* "M" initial badge for personal 3D work cards */
-.card-badge-m {
-  position: absolute; top: 12px; left: 12px; z-index: 2;
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1.5px solid var(--accent);
-  background: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px; font-weight: 600; color: var(--bg-always-dark);
-}
-
-.card-thumb {
-  aspect-ratio: 16/10; background: #111;
-  position: relative; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.card-ph {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3); font-weight: 300; font-style: italic;
-  color: rgba(237,233,225,0.07);
-}
-.thumb-line {
-  position: absolute; bottom:0; left:0;
-  height: 1px; width: 0; background: var(--accent);
-}
-.card-ext {
-  position: absolute; top:12px; right:12px;
-  width: 28px; height: 28px; border: 1px solid var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--accent);
-  opacity: 0; transform: translate(6px,-6px);
-}
-.card-body { padding: 18px 20px 22px; flex: 1; border-top: 1px solid rgba(255,255,255,0.08); }
-.card-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 6px;
-}
-.card-title {
-  font-family: 'Lora', serif; font-size: var(--fs-body); font-weight: 500;
-  line-height: 1.4;
-}
-.card-desc { font-size: 14px; margin-top: 5px; line-height: 1.6; }
-
-/* Case study panels */
-.cs-card { overflow: hidden; display: flex; flex-direction: column; position: relative; }
-.cs-card:hover .thumb-line { width: 100%; }
-.cs-card:hover .card-ext { opacity: 1; transform: translate(0,0); }
-.cs-panel {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: var(--cs-panel-bg);
-  border-top: 1px solid var(--accent);
-  padding: 20px 20px 22px;
-  transform: translateY(100%);
-  pointer-events: none;
-}
-.cs-card:hover .cs-panel,
-.cs-card:focus-within .cs-panel { transform: translateY(0); pointer-events: auto; }
-.cs-row { margin-bottom: 10px; }
-.cs-row:last-child { margin-bottom: 0; }
-.cs-field {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--accent); display: block; margin-bottom: 2px;
-}
-.cs-val { font-size: 13px; color: #ede9e1; line-height: 1.55; }
-
-/* ================================================================
-   CONNECT
-   ================================================================ */
-#connect { justify-content: center; border-bottom: none; }
-.connect-heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h2); font-weight: 300; line-height: 1.15;
-  max-width: 560px; margin-bottom: 12px; color: var(--text-primary);
-}
-.connect-heading em { font-style: italic; color: var(--accent); }
-.connect-sub {
-  font-size: var(--fs-body); color: var(--text-secondary);
-  max-width: 400px; line-height: 1.75; margin-bottom: 36px;
-}
-.connect-email {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3); font-weight: 400;
-  color: var(--accent); display: block; margin-bottom: 12px;
-}
-.connect-email:hover { opacity: 0.75; }
-.connect-linkedin {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: var(--fs-h3); font-weight: 400;
-  color: var(--accent); display: flex; align-items: center; gap: 10px;
-  margin-bottom: 24px;
-}
-.connect-linkedin:hover { opacity: 0.75; }
-.connect-linkedin svg { width: 20px; height: 20px; flex-shrink: 0; }
-.connect-avail {
-  font-size: var(--fs-body); color: var(--text-secondary);
-  opacity: 0.5; margin-bottom: 48px; line-height: 1.7;
-}
-.connect-secondary { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
-.c-link {
-  display: flex; align-items: center; gap: 16px;
-  font-family: 'IBM Plex Mono', monospace; font-size: var(--fs-body);
-  color: var(--text-secondary); width: fit-content;
-  padding-bottom: 2px; border-bottom: 1px solid transparent;
-}
-.c-link:hover { color: var(--text-primary); border-bottom-color: var(--accent); }
-.c-icon { width: 16px; height: 16px; opacity: 0.5; flex-shrink: 0; }
-.c-link:hover .c-icon { opacity: 1; }
-.connect-foot {
-  padding-top: 48px; border-top: 1px solid var(--border);
-  display: flex; gap: 32px; flex-wrap: wrap;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-cap); letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--text-secondary); opacity: 0.5;
-}
-
-/* ================================================================
-   MOBILE PILL NAV
-   ================================================================ */
-.pill-nav {
-  display: none; position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-  background: rgba(20,19,18,0.92); backdrop-filter: blur(12px);
-  border: 1px solid var(--border); border-radius: 100px;
-  padding: 10px 20px; z-index: 200; gap: 6px;
-}
-.pill-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--text-secondary); opacity: 0.4; cursor: pointer;
-}
-.pill-dot.active { background: var(--accent); opacity: 1; width: 20px; border-radius: 10px; }
-
-/* ================================================================
-   RESPONSIVE
-   ================================================================ */
-@media (max-width: 768px) {
-  :root { --sidebar-w: 0px; --gutter: 28px; }
-  .sidebar { display: none; }
-  .main { margin-left: 0; border-left: none; }
-  .section { padding: 60px var(--gutter) 80px; }
-  .pill-nav { display: flex; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .exp-row { grid-template-columns: 48px 1fr; gap: 14px; padding: 22px 0; }
-  .exp-row:hover { margin: 0; padding-left: 0; padding-right: 0; }
-  .exp-year { grid-column: 2; text-align: left; padding-top: 0; }
-  .connect-foot { flex-direction: column; gap: 8px; }
-  .hero-bg { display: none; }
-  .trust-logos { gap: 28px; display: grid; grid-template-columns: 1fr 1fr; justify-items: center; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .cs-panel { position: static; transform: none; border-top: 1px solid var(--accent); padding-top: 16px; }
-}
-@media (min-width: 769px) and (max-width: 1100px) {
-  :root { --sidebar-w: 160px; --gutter: 48px; }
-  .sidebar { padding: 40px 24px; }
+@media (min-width:769px) and (max-width:1100px) {
+  :root { --sidebar-w:160px; --gutter:48px; } .sidebar { padding:40px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- SECTION 1.6 — Theme toggle button -->
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
   <span class="toggle-icon" id="toggleIcon"></span>
 </button>
-
-<!-- Mobile pill nav — 7 sections -->
 <nav class="pill-nav" id="pill-nav">
   <div class="pill-dot" onclick="goto('hero')"></div>
   <div class="pill-dot" onclick="goto('numbers')"></div>
@@ -660,49 +461,48 @@ a { text-decoration: none; color: inherit; }
   <aside class="sidebar">
     <div class="sidebar-logo">M<span>.</span>A</div>
     <nav class="nav-items">
-      <button class="nav-item active" onclick="goto('hero')"><span class="nav-dot"></span>Hero</button>
+      <button class="nav-item active" onclick="goto('hero')"><span class="nav-dot"></span>Intro</button>
       <button class="nav-item" onclick="goto('numbers')"><span class="nav-dot"></span>Numbers</button>
       <button class="nav-item" onclick="goto('experience')"><span class="nav-dot"></span>Experience</button>
       <button class="nav-item" onclick="goto('skills')"><span class="nav-dot"></span>Skills</button>
       <button class="nav-item" onclick="goto('work')"><span class="nav-dot"></span>Work</button>
       <button class="nav-item" onclick="goto('connect')"><span class="nav-dot"></span>Connect</button>
     </nav>
-    <div class="sidebar-foot">
-      Ashoka University<br>
-      CS-Ent · Econ Minor<br>
-      Available for freelance
-    </div>
+    <div class="sidebar-foot">Ashoka University<br>CS-Ent · Econ Minor<br>Available for freelance</div>
   </aside>
 
   <main class="main">
 
-    <!-- ══ HERO ══ -->
+    <!-- HERO -->
     <section class="section" id="hero">
-      <div class="hero-bg">M</div>
       <div class="hero-eyebrow">3D · Video · Visual Creative</div>
       <h1 class="hero-name">Mudit<br><em>Ahlawat</em></h1>
       <div class="avail-badge"><span class="avail-dot"></span>Available for Summer 2026</div>
       <p class="hero-position">I make brand content, short films, and 3D visuals for startups, studios, and agencies — built to perform.</p>
       <div class="hero-primary-cta">
-        <button class="btn-pill" onclick="goto('connect')">→ Let's work together</button>
+        <button class="btn-pill" onclick="goto('work')">→ View selected work</button>
       </div>
       <div class="hero-secondary-cta">
-        <button class="btn-ghost" onclick="goto('work')">View Work</button>
+        <button class="btn-ghost" onclick="goto('connect')">Contact</button>
+      </div>
+      <div class="filmstrip-wrap">
+        <div class="filmstrip-track" id="filmstripTrack"></div>
       </div>
     </section>
 
-    <!-- ══ TRUST STRIP — logos from registry ══ -->
+    <!-- TRUST -->
     <section class="section" id="trust">
-      <div class="trust-logos reveal">
-        <!-- data-logo attributes are resolved by JS from LOGOS registry -->
-        <div class="trust-logo-wrap"><img data-logo="tedx" class="logo-img" alt="TEDxAshoka University"></div>
-        <div class="trust-logo-wrap"><img data-logo="ashoka" class="logo-img" alt="Ashoka University"></div>
-        <div class="trust-logo-wrap"><img data-logo="bad" class="logo-img" alt="BAD Productions"></div>
-        <div class="trust-logo-wrap"><img data-logo="tjc" class="logo-img" alt="The Jersey Collective"></div>
-      </div>
-    </section>
+    <div class="trust-logos reveal">
+    <div class="trust-logo-wrap"><img data-logo="tedx"   class="logo-img" alt=""></div>
+    <div class="trust-logo-wrap"><img data-logo="ashoka" class="logo-img" alt=""></div>
+    <div class="trust-logo-wrap"><img data-logo="bad"    class="logo-img" alt=""></div>
+    <div class="trust-logo-wrap"><img data-logo="tjc"    class="logo-img" alt=""></div>
+    <div class="trust-logo-wrap"><img data-logo="bclub"  class="logo-img" alt=""></div> 
+    <div class="trust-logo-wrap"><img data-logo="hyst"   class="logo-img" alt=""></div> 
+  </div>
+</section>
 
-    <!-- ══ BY THE NUMBERS ══ -->
+    <!-- NUMBERS -->
     <section class="section" id="numbers">
       <div class="sec-label reveal">By the numbers</div>
       <div class="stats-grid reveal">
@@ -729,413 +529,240 @@ a { text-decoration: none; color: inherit; }
       </div>
     </section>
 
-    <!-- ══ ROLES & EXPERIENCE — Section 2 ══
-         Left col: logo img from registry
-         Right top: Role → Org name text → Detail
-         Date corrections per Section 2.3
-    ══ -->
+    <!-- EXPERIENCE -->
     <section class="section" id="experience">
       <div class="sec-label reveal">Roles &amp; Experience</div>
       <div class="reveal">
-
         <div class="exp-row">
-          <div class="exp-logo-wrap">
-            <img data-logo="tedx" class="logo-img" alt="TEDxAshoka University">
-          </div>
-          <div>
-            <div class="exp-role">Head of Video Production</div>
-            <div class="exp-org-name">TEDxAshoka University</div>
-            <div class="exp-detail">End-to-end video for all event material — planning, shooting, editing, and brand consistency across promotional and event-day content.</div>
-          </div>
-          <div class="exp-year">2026</div>
+          <div class="exp-logo-wrap"><img data-logo="tedx" class="logo-img" alt=""></div>
+          <div><div class="exp-role">Head of Video Production</div>
+          <div class="exp-org-name">TEDxAshoka University</div>
+          <div class="exp-detail">End-to-end video for all event material — planning, shooting, editing, and brand consistency across promotional and event-day content.</div></div>
+          <div class="exp-year">2025–Present</div>
         </div>
-
         <div class="exp-row">
-          <div class="exp-logo-wrap">
-            <img data-logo="bad" class="logo-img" alt="BAD Productions">
-          </div>
-          <div>
-            <div class="exp-role">Co-Founder &amp; Lead Producer</div>
-            <div class="exp-org-name">BAD Productions</div>
-            <div class="exp-detail">Cinematography, direction, and editing across 5 short films. Full production lifecycle from concept to delivery. 90,000+ combined views.</div>
-          </div>
+          <div class="exp-logo-wrap"><img data-logo="bad" class="logo-img" alt=""></div>
+          <div><div class="exp-role">Co-Founder &amp; Lead Producer</div>
+          <div class="exp-org-name">BAD Productions</div>
+          <div class="exp-detail">Cinematography, direction, and editing across 5 short films. Full production lifecycle from concept to delivery. 90,000+ combined views.</div></div>
           <div class="exp-year">2023–2025</div>
         </div>
-
         <div class="exp-row">
-          <div class="exp-logo-wrap">
-            <img data-logo="hyst" class="logo-img" alt="Have You Seen Tara">
-          </div>
-          <div>
-            <div class="exp-role">Cinematographer</div>
-            <div class="exp-org-name">Have You Seen Tara</div>
-            <div class="exp-detail">DOP on ongoing web series. Visual language, shot design, and on-set camera operation.</div>
-          </div>
+          <div class="exp-logo-wrap"><img data-logo="hyst" class="logo-img" alt=""></div>
+          <div><div class="exp-role">Co-Director of Photography</div>
+          <div class="exp-org-name">Have You Seen Tara</div>
+          <div class="exp-detail">DOP on ongoing web series. Visual language, shot design, and on-set camera operation.</div></div>
           <div class="exp-year">2025–Present</div>
         </div>
-
         <div class="exp-row">
-          <div class="exp-logo-wrap">
-            <img data-logo="bclub" class="logo-img" alt="Ashoka Business Club">
-          </div>
-          <div>
-            <div class="exp-role">Marketing Associate</div>
-            <div class="exp-org-name">Ashoka Business Club</div>
-            <div class="exp-detail">Video production and social content for club campaigns. Reel reached 55,000+ views.</div>
-          </div>
+          <div class="exp-logo-wrap"><img data-logo="bclub" class="logo-img" alt=""></div>
+          <div><div class="exp-role">Marketing Associate</div>
+          <div class="exp-org-name">Ashoka Business Club</div>
+          <div class="exp-detail">Video production and social content for club campaigns. Reel reached 55,000+ organic views.</div></div>
           <div class="exp-year">2025–Present</div>
         </div>
-
         <div class="exp-row">
-          <div class="exp-logo-wrap">
-            <img data-logo="tjc" class="logo-img" alt="The Jersey Collective">
-          </div>
-          <div>
-            <div class="exp-role">Creative Director</div>
-            <div class="exp-org-name">The Jersey Collective</div>
-            <div class="exp-detail">Graphics, media support, and shoot production for pop-up events and product launches.</div>
-          </div>
+          <div class="exp-logo-wrap"><img data-logo="tjc" class="logo-img" alt=""></div>
+          <div><div class="exp-role">Creative Director</div>
+          <div class="exp-org-name">The Jersey Collective</div>
+          <div class="exp-detail">Graphics, media support, and shoot production for pop-up events and product launches.</div></div>
           <div class="exp-year">2025</div>
         </div>
-
       </div>
     </section>
 
-
-
-    <!-- ══ SKILLS ══ -->
+    <!-- SKILLS -->
     <section class="section" id="skills">
       <div class="sec-label reveal">Skills</div>
       <div class="skill-groups reveal">
         <div class="skill-group">
           <div class="skill-group-label">Production &amp; Visual</div>
           <div class="chip-row">
-            <span class="chip primary">3D Visualization</span>
-            <span class="chip primary">Blender · PBR · HDRI</span>
-            <span class="chip primary">Video Production</span>
-            <span class="chip primary">Cinematography</span>
-            <span class="chip">DaVinci Resolve</span>
-            <span class="chip">Adobe Premiere</span>
-            <span class="chip">After Effects</span>
-            <span class="chip">VFX &amp; Compositing</span>
+            <span class="chip primary">3D Visualization</span><span class="chip primary">Blender · PBR · HDRI</span>
+            <span class="chip primary">Video Production</span><span class="chip primary">Cinematography</span>
+            <span class="chip">DaVinci Resolve</span><span class="chip">Adobe Premiere</span>
+            <span class="chip">After Effects</span><span class="chip">VFX &amp; Compositing</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-group-label">Marketing &amp; Brand</div>
           <div class="chip-row">
-            <span class="chip primary">Short-form Brand Content</span>
-            <span class="chip primary">Social Media Content</span>
-            <span class="chip">Graphic Design</span>
-            <span class="chip">Creative Direction</span>
-            <span class="chip">Adobe Illustrator</span>
-            <span class="chip">Canva</span>
+            <span class="chip primary">Short-form Brand Content</span><span class="chip primary">Social Media Content</span>
+            <span class="chip">Graphic Design</span><span class="chip">Creative Direction</span>
+            <span class="chip">Adobe Illustrator</span><span class="chip">Canva</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-group-label">Leadership &amp; Management</div>
           <div class="chip-row">
-            <span class="chip primary">Event Production</span>
-            <span class="chip">Team Leadership</span>
-            <span class="chip">Project Management</span>
-            <span class="chip">Creative Briefing</span>
+            <span class="chip primary">Event Production</span><span class="chip">Team Leadership</span>
+            <span class="chip">Project Management</span><span class="chip">Creative Briefing</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-group-label">Dev &amp; AI Tools</div>
           <div class="chip-row">
-            <span class="chip">AI-assisted Development</span>
-            <span class="chip">Python</span>
-            <span class="chip">C</span>
-            <span class="chip">HTML · CSS</span>
+            <span class="chip">AI-assisted Development</span><span class="chip">Python</span>
+            <span class="chip">C</span><span class="chip">HTML · CSS</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══ WORK & PROJECTS — Section 3: always-dark, reordered, badges ══
-         Card order per brief:
-         1. TEDx (CS) · 2. BClub (CS) · 3. TJC · 4. HUMAINE (CS)
-         5. HYST · 6. Apple Watch · 7. Hard Surface · 8. DR2
-
-         HOW TO ADD REAL THUMBNAIL:
-           Remove: <div class="card-ph">TEXT</div>
-           Add:    <img src="YOUR_FILE.jpg" alt="description" style="width:100%;height:100%;object-fit:cover;">
-    ══ -->
+    <!-- WORK — generated from PROJECTS array -->
     <section class="section always-dark" id="work">
       <div class="sec-label reveal">Work &amp; Projects</div>
-      <div class="work-grid reveal">
-
-        <!-- 1 — TEDx (CASE STUDY) -->
-        <div class="cs-card work-card">
-          <div class="card-thumb">
-            <!-- Badge: LOGOS.tedx -->
-            <div class="card-badge"><img data-logo="tedx" alt="TEDxAshoka University"></div>
-            <div class="card-ph">TEDx</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/tedxashokauniv/reel/DHqrf_boYAf/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Head of Video Production</div>
-            <div class="card-title">TEDxAshoka University</div>
-            <div class="card-desc">Full event coverage — planning, shooting, editing, brand consistency. 130,000+ views.</div>
-          </div>
-          <div class="cs-panel">
-            <div class="cs-row"><span class="cs-field">Brief</span><span class="cs-val">End-to-end video production for a 500-person flagship campus event</span></div>
-            <div class="cs-row"><span class="cs-field">My Role</span><span class="cs-val">Shot list, on-site direction, coordinated 3 editors, managed 4-day shoot schedule</span></div>
-            <div class="cs-row"><span class="cs-field">Result</span><span class="cs-val">130,000+ views — highest-performing video output in TEDxAshoka's history</span></div>
-          </div>
-        </div>
-
-        <!-- 2 — BClub Campaign (CASE STUDY) -->
-        <div class="cs-card work-card">
-          <div class="card-thumb">
-            <div class="card-badge"><img data-logo="bclub" alt="Ashoka Business Club"></div>
-            <div class="card-ph">BClub</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/ashokabusinessclub/reel/DOtOEv1krMT/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Video · Social Media</div>
-            <div class="card-title">Business Club Ashoka — Campaign</div>
-            <div class="card-desc">Marketing reel for campus business club. 55,000+ views.</div>
-          </div>
-          <div class="cs-panel">
-            <div class="cs-row"><span class="cs-field">Brief</span><span class="cs-val">Single social reel for a campus club's campaign launch</span></div>
-            <div class="cs-row"><span class="cs-field">My Role</span><span class="cs-val">Concept, shoot, and edit — solo production, one shoot day</span></div>
-            <div class="cs-row"><span class="cs-field">Result</span><span class="cs-val">55,000+ views — highest-performing organic reel in the club's history</span></div>
-          </div>
-        </div>
-
-        <!-- 3 — Jersey Collective -->
-        <div class="work-card">
-          <div class="card-thumb">
-            <div class="card-badge"><img data-logo="tjc" alt="The Jersey Collective"></div>
-            <div class="card-ph">Brand</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/thejerseycollective_/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Brand · Creative Direction</div>
-            <div class="card-title">The Jersey Collective</div>
-            <div class="card-desc">Creative direction — graphics, product shoot coordination, and pop-up event visual support.</div>
-          </div>
-        </div>
-
-        <!-- 4 — HUMAINE (CASE STUDY) -->
-        <div class="cs-card work-card">
-          <div class="card-thumb">
-            <div class="card-badge"><img data-logo="bad" alt="BAD Productions"></div>
-            <div class="card-ph">HUMAINE</div>
-            <div class="thumb-line"></div>
-            <a href="https://youtu.be/GcCMzl7e1dE" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Short Film · Co-Founder</div>
-            <div class="card-title">HUMAINE — BAD Productions</div>
-            <div class="card-desc">Futuristic short film. Full production — direction, cinematography, edit. 90K+ views.</div>
-          </div>
-          <div class="cs-panel">
-            <div class="cs-row"><span class="cs-field">Brief</span><span class="cs-val">Futuristic-concept short film produced with zero external budget</span></div>
-            <div class="cs-row"><span class="cs-field">My Role</span><span class="cs-val">Co-director, cinematographer, and editor — full production lifecycle</span></div>
-            <div class="cs-row"><span class="cs-field">Result</span><span class="cs-val">90,000+ combined views across BAD Productions' catalogue</span></div>
-          </div>
-        </div>
-
-        <!-- 5 — Have You Seen Tara -->
-        <div class="work-card">
-          <div class="card-thumb">
-            <div class="card-badge"><img data-logo="hyst" alt="Have You Seen Tara"></div>
-            <div class="card-ph">HYST</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/haveyouseentara/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Short Film · Cinematographer</div>
-            <div class="card-title">Have You Seen Tara</div>
-            <div class="card-desc">DOP on ongoing web series. Shot design, visual language, and on-set camera operation.</div>
-          </div>
-        </div>
-
-        <!-- 6 — Apple Watch 3D (M badge) -->
-        <div class="work-card">
-          <div class="card-thumb">
-            <div class="card-badge-m">M</div>
-            <div class="card-ph">3D Render</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/mudit_main/reel/C8MBJ7wIa4Q/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">3D Visualization · Blender</div>
-            <div class="card-title">Apple Watch Concept Render</div>
-            <div class="card-desc">Product visualization exploring PBR materials, reflections, and HDRI lighting precision.</div>
-          </div>
-        </div>
-
-        <!-- 7 — Hard Surface Studies (M badge) -->
-        <div class="work-card">
-          <div class="card-thumb">
-            <div class="card-badge-m">M</div>
-            <div class="card-ph">3D</div>
-            <div class="thumb-line"></div>
-            <a href="https://www.instagram.com/mudit_main/reel/C61VH76viEY/" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">3D · Hard Surface Modeling</div>
-            <div class="card-title">Hard Surface Studies</div>
-            <div class="card-desc">Mechanical asset modeling and lighting experiments in Blender.</div>
-          </div>
-        </div>
-
-        <!-- 8 — Dear Roommate 2 -->
-        <div class="work-card">
-          <div class="card-thumb">
-            <div class="card-badge"><img data-logo="bad" alt="BAD Productions"></div>
-            <div class="card-ph">DR2</div>
-            <div class="thumb-line"></div>
-            <a href="https://youtu.be/Ndr_bWrjQYc" target="_blank" class="card-ext">↗</a>
-          </div>
-          <div class="card-body">
-            <div class="card-tag">Short Film · BAD Productions</div>
-            <div class="card-title">Dear Roommate 2</div>
-            <div class="card-desc">Comic narrative short. Direction and post-production lead, 2024.</div>
-          </div>
-        </div>
-
-      </div>
+      <div class="work-grid reveal" id="workGrid"></div>
     </section>
 
-    <!-- ══ CONNECT ══ -->
+    <!-- CONNECT -->
     <section class="section" id="connect">
-      <div class="sec-label reveal">Connect with me</div>
-      <h2 class="connect-heading reveal">Got a project in mind?<br><em>Let's make it.</em></h2>
-      <p class="connect-sub reveal">Open to freelance projects, internships, and interesting collaborations.</p>
-      <a href="/cdn-cgi/l/email-protection#9df0aca9fcf5f1fceafce9ddfaf0fcf4f1b3fef2f0" class="connect-email reveal"><span class="__cf_email__" data-cfemail="503d616431383c3127312410373d31393c7e333f3d">[email&#160;protected]</span></a>
-      <a href="https://www.linkedin.com/in/mudit-ahlawat-83746733b/" target="_blank" class="connect-linkedin reveal">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="1" y="1" width="14" height="14" rx="2"/>
-          <path d="M5 7v5M5 5v.01M8 12v-3a2 2 0 014 0v3M8 7v5"/>
-        </svg>
-        mudit-ahlawat
-      </a>
-      <p class="connect-avail reveal">Currently available for projects starting June 2026. I respond within 24 hours.</p>
-      <div class="connect-secondary reveal">
-        <a href="tel:+919416492464" class="c-link">
-          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 2h3l1.5 4-2 1.5a9 9 0 004 4L11 9.5l4 1.5v3a1 1 0 01-1 1A13 13 0 012 3a1 1 0 011-1z"/>
+      <div class="sec-label reveal">Connect</div>
+      <div class="reveal">
+        <h2 class="connect-heading">Let's make something <em>worth watching.</em></h2>
+        <p class="connect-sub">Open to brand campaigns, short-form content, event video, and 3D product work.</p>
+        <a href="mailto:m14ahlawat@gmail.com" class="connect-email">m14ahlawat@gmail.com</a>
+        <a href="https://www.linkedin.com/in/mudit-ahlawat-83746733b" target="_blank" class="connect-linkedin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
           </svg>
-          +91 94164 92464
+          linkedin.com/in/mudit-ahlawat
         </a>
-        <a href="https://www.instagram.com/mudit_main/" target="_blank" class="c-link">
-          <svg class="c-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="2" y="2" width="12" height="12" rx="3"/>
-            <circle cx="8" cy="8" r="3"/>
-            <circle cx="11.5" cy="4.5" r="0.5" fill="currentColor"/>
-          </svg>
-          @mudit_main
-        </a>
-      </div>
-      <!-- SECTION 5 — Footer reordered: creative identity first -->
-      <div class="connect-foot reveal">
-        <span>3D · Video · Visual Creative</span>
-        <span>Mudit Ahlawat</span>
-        <span>Ashoka University · CS-Ent · Econ Minor</span>
-        <span>Available for freelance &amp; internships</span>
+        <p class="connect-avail">Currently available for projects starting Summer 2026. Replies within 24 hours.</p>
+        <div class="connect-secondary">
+          <a href="https://www.instagram.com/mudit_main/" target="_blank" class="c-link">
+            <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>@mudit_main
+          </a>
+          <a href="https://muditahlawat.in" target="_blank" class="c-link">
+            <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+            </svg>muditahlawat.in
+          </a>
+        </div>
+        <div class="connect-foot">
+          <span>Sonipat · India</span><span>Ashoka University 2028</span><span>B.Sc CS &amp; Entrepreneurship</span>
+        </div>
       </div>
     </section>
 
   </main>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  /* ============================================================
-     LOGO REGISTRY — apply src/alt to all [data-logo] img tags
-     from the LOGOS object defined in Section 0 above.
-     ============================================================ */
-  function applyLogos() {
-    document.querySelectorAll('img[data-logo]').forEach(img => {
-      const key = img.getAttribute('data-logo');
-      if (LOGOS[key]) {
-        img.src = LOGOS[key].src;
-        if (!img.getAttribute('alt')) img.alt = LOGOS[key].alt;
-        /* Graceful fallback: hide broken image, show nothing */
-        img.onerror = function() { this.style.opacity = '0'; };
-      }
-    });
-  }
-  applyLogos();
+<script>
+// ── Logo registry ──
+document.querySelectorAll('[data-logo]').forEach(el => {
+  const key = el.getAttribute('data-logo');
+  if (LOGOS[key]) { el.src = LOGOS[key].src; el.alt = LOGOS[key].alt; }
+});
 
-  /* ============================================================
-     THEME TOGGLE — Section 1.6
-     ============================================================ */
-  const toggleBtn  = document.getElementById('themeToggle');
-  const toggleIcon = document.getElementById('toggleIcon');
-
-  function getCurrentTheme() {
-    return document.documentElement.getAttribute('data-theme') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  }
-  function updateIcon(theme) {
-    toggleIcon.textContent = theme === 'dark' ? '☀' : '☽';
-  }
-  updateIcon(getCurrentTheme());
-
-  toggleBtn.addEventListener('click', () => {
-    const current = getCurrentTheme();
-    const next = current === 'dark' ? 'light' : 'dark';
-
-    /* Spin + fade animation */
-    toggleBtn.classList.add('spinning');
-    setTimeout(() => {
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateIcon(next);
-      toggleBtn.classList.remove('spinning');
-    }, 150);
+// ── Build filmstrip from PROJECTS ──
+(function() {
+  const track = document.getElementById('filmstripTrack');
+  const all = [...PROJECTS, ...PROJECTS]; // duplicate for seamless loop
+  all.forEach(p => {
+    const wrap = document.createElement('div');
+    wrap.className = 'film-thumb-wrap';
+    const img = document.createElement('img');
+    img.src = p.thumb; img.alt = p.title; img.loading = 'lazy';
+    wrap.appendChild(img);
+    track.appendChild(wrap);
   });
 
-  /* ============================================================
-     NAVIGATION
-     ============================================================ */
-  const sections = ['hero','numbers','experience','skills','work','connect'];
-  const navBtns  = document.querySelectorAll('.nav-item');
-  const pillDots = document.querySelectorAll('.pill-dot');
+})();
 
-  function goto(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-  }
+// ── Build work grid from PROJECTS ──
+(function() {
+  const grid = document.getElementById('workGrid');
+  PROJECTS.forEach(p => {
+    const hasCS = !!p.caseStudy;
+    const card = document.createElement('div');
+    card.className = hasCS ? 'cs-card work-card' : 'work-card';
 
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const idx = sections.indexOf(entry.target.id);
-        if (idx === -1) return;
-        navBtns.forEach((b,i)  => b.classList.toggle('active', i === idx));
-        pillDots.forEach((d,i) => d.classList.toggle('active', i === idx));
-      }
-    });
-  }, { threshold: 0.4 });
-  sections.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+    // badge
+    const badge = p.logo
+      ? `<div class="card-badge"><img src="${LOGOS[p.logo].src}" alt="${LOGOS[p.logo].alt}"></div>`
+      : `<div class="card-badge-m">M</div>`;
 
-  /* Scroll reveal */
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), i * 80);
-        ro.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    // external link button
+    const extBtn = p.link && p.link !== '#'
+      ? `<a href="${p.link}" target="_blank" class="card-ext">↗</a>`
+      : `<div class="card-ext">↗</div>`;
 
-  /* Touch support for case study panels on mobile */
-  document.querySelectorAll('.cs-card').forEach(card => {
-    card.addEventListener('touchstart', () => card.classList.toggle('touch-open'), { passive: true });
+    // case study panel
+    const csPanel = hasCS ? `
+      <div class="cs-panel">
+        <div class="cs-row"><span class="cs-field">Brief</span><span class="cs-val">${p.caseStudy.brief}</span></div>
+        <div class="cs-row"><span class="cs-field">My role</span><span class="cs-val">${p.caseStudy.role}</span></div>
+        <div class="cs-row"><span class="cs-field">Result</span><span class="cs-val">${p.caseStudy.result}</span></div>
+      </div>` : '';
+
+    card.innerHTML = `
+      <div class="card-thumb">
+        ${badge}
+        <img src="${p.thumb}" alt="${p.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="card-ph">${p.title.split(' ')[0]}</div>
+        <div class="thumb-line"></div>
+        ${extBtn}
+      </div>
+      <div class="card-body">
+        <div class="card-tag">${p.tag}</div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-contrib">${p.contrib}</div>
+        <div class="card-desc">${p.desc}</div>
+      </div>
+      ${csPanel}`;
+
+    grid.appendChild(card);
   });
+})();
+
+// ── Theme toggle ──
+const toggle = document.getElementById('themeToggle');
+const icon   = document.getElementById('toggleIcon');
+function getTheme() { return document.documentElement.getAttribute('data-theme') || 'dark'; }
+function setIcon(t) { icon.textContent = t === 'dark' ? '☀' : '☾'; }
+setIcon(getTheme());
+toggle.addEventListener('click', () => {
+  toggle.classList.add('spinning');
+  setTimeout(() => {
+    const next = getTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    setIcon(next); toggle.classList.remove('spinning');
+  }, 150);
+});
+
+// ── Scroll helpers ──
+function goto(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth' }); }
+const reveals  = document.querySelectorAll('.reveal');
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const pillDots = document.querySelectorAll('.pill-dot');
+new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 }).observe = (function(orig){
+  return function(el){ orig.call(this,el); };
+})(IntersectionObserver.prototype.observe);
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => ro.observe(r));
+const no = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+    navItems.forEach((n,i) => {
+      const active = n.getAttribute('onclick')?.includes(id);
+      n.classList.toggle('active', active);
+      pillDots[i]?.classList.toggle('active', active);
+    });
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => no.observe(s));
 </script>
-
-<style>
-  .cs-card.touch-open .cs-panel { transform: translateY(0); pointer-events: auto; }
-</style>
-
 </body>
 </html>
