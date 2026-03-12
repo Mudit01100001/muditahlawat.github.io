@@ -52,7 +52,7 @@ const PROJECTS = [
     thumb:   "thumbs/bclub-thumb.jpg",
     tag:     "Social Campaign Reel",
     title:   "Ashoka Business Club Campaign",
-    contrib: "Concept, shoot and edit — solo",
+    contrib: "Concept, shoot and edit | solo",
     desc:    "One-day turnaround reel conceived, shot, and edited end-to-end for a club recruitment push.",
     logo:    "bclub",
     link:    "https://www.instagram.com/ashokabusinessclub/reel/DC2GaCftWkP/",
@@ -90,7 +90,7 @@ const PROJECTS = [
     tag:     "Web Series",
     title:   "Have You Seen Tara",
     contrib: "Director of photography",
-    desc:    "Cinematography on an ongoing narrative series — visual language, shot design, and on-set operation.",
+    desc:    "Cinematography on an ongoing narrative series | visual language, shot design, and on-set operation.",
     logo:    "hyst",
     link:    "#",
   },
@@ -108,7 +108,7 @@ const PROJECTS = [
     tag:     "3D · Hard Surface Modeling",
     title:   "Hard Surface Studies",
     contrib: "Mechanical asset modeling and lighting",
-    desc:    "Mechanical asset experiments in Blender — clean topology, custom shading, and moody key lighting.",
+    desc:    "Mechanical asset experiments in Blender | clean topology, custom shading, and moody key lighting.",
     logo:    null,
     link:    "https://www.instagram.com/mudit_main/reel/C61VH76viEY/",
   },
@@ -261,7 +261,7 @@ a { text-decoration:none; color:inherit; }
   min-height: auto;
   justify-content: flex-start;
   padding-bottom: 0;
-  overflow-x: hidden;
+  overflow: clip;
   border-bottom: none;
 }
 .hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:3px;
@@ -495,8 +495,13 @@ a { text-decoration:none; color:inherit; }
   .exp-row:hover { margin:0; padding-left:0; padding-right:0; }
   .exp-year { grid-column:2; text-align:left; padding-top:0; }
   .connect-foot { flex-direction:column; gap:8px; }
-  .trust-logos { gap:28px; display:grid; grid-template-columns:1fr 1fr; justify-items:center; }
+  .trust-logos { gap:28px; display:grid; grid-template-columns:repeat(3,1fr); justify-items:center; }
   .cs-panel { position:static; transform:none; border-top:1px solid var(--accent); padding-top:16px; }
+  /* Carousel controls: dots + arrows on one row, drag hint centred below */
+  .c-controls { flex-wrap:wrap; row-gap:10px; }
+  .c-dots { order:1; }
+  .c-arrows { order:2; margin-left:auto; }
+  .c-drag-hint { order:3; width:100%; text-align:center; margin-left:0; }
 }
 @media (min-width:769px) and (max-width:1100px) {
   :root { --sidebar-w:160px; --gutter:48px; } .sidebar { padding:40px 24px; }
@@ -726,7 +731,7 @@ a { text-decoration:none; color:inherit; }
       <div class="hero-eyebrow">3D · Video · Visual Creative</div>
       <h1 class="hero-name">Mudit<br><em>Ahlawat</em></h1>
       <div class="avail-badge"><span class="avail-dot"></span>Available for Summer 2026</div>
-      <p class="hero-position">I make brand content, short films, and 3D visuals for startups, studios, and agencies — built to perform.</p>
+      <p class="hero-position">I make brand content, short films, and 3D visuals for startups, studios, and agencies | perform.</p>
       <div class="hero-primary-cta">
         <button class="btn-pill" onclick="goto('work')"><span>→ View selected work</span></button>
       </div>
@@ -738,7 +743,7 @@ a { text-decoration:none; color:inherit; }
         <div class="c-stage" id="c-stage"></div>
         <div class="c-controls">
           <div class="c-dots" id="c-dots"></div>
-          <div class="c-drag-hint">← drag or click sides →</div>
+          <div class="c-drag-hint">| drag or click sides |</div>
           <div class="c-arrows">
             <button class="c-arrow" id="c-prev" aria-label="Previous">←</button>
             <button class="c-arrow" id="c-next" aria-label="Next">→</button>
@@ -765,12 +770,12 @@ a { text-decoration:none; color:inherit; }
       <div class="stats-grid reveal">
         <div class="stat-cell">
           <div class="stat-num"><span id="cu1">0</span><span>K</span></div>
-          <div class="stat-desc">TEDxAshoka — total video views<br>Head of Video Production, 2026</div>
+          <div class="stat-desc">TEDxAshoka | total video views<br>Head of Video Production, 2026</div>
           <div class="stat-context">Delivered under a 3-week production deadline, zero agency budget</div>
         </div>
         <div class="stat-cell">
           <div class="stat-num"><span id="cu2">0</span><span>K</span></div>
-          <div class="stat-desc">BAD Productions — combined film views<br>Co-Founder, 5 short films</div>
+          <div class="stat-desc">BAD Productions | combined film views<br>Co-Founder, 5 short films</div>
           <div class="stat-context">5 films across 2 years | concept to final cut, fully in-house</div>
         </div>
         <div class="stat-cell">
