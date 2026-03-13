@@ -193,6 +193,11 @@ const PROJECTS = [
   --film-thumb-h:135px;
   --film-thumb-gap:12px;
 }
+/* Prevent horizontal scroll caused by full-bleed negative-margin elements.
+   Safe: all positioned elements use position:fixed (not sticky), so they
+   are immune to overflow on html. Value propagates to the viewport, not
+   to a DOM scroll container. */
+html { overflow-x: hidden; }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 body, .sidebar, .nav-item, .btn-pill, .btn-ghost, .theme-toggle,
 .logo-img, .chip, .avail-badge, .stat-cell, .exp-row {
@@ -261,7 +266,6 @@ a { text-decoration:none; color:inherit; }
   min-height: auto;
   justify-content: flex-start;
   padding-bottom: 0;
-  overflow: clip;
   border-bottom: none;
 }
 .hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:3px;
