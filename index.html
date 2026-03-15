@@ -3,7 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mudit Ahlawat — Creative Portfolio</title>
+<title>Mudit Ahlawat | Creative Portfolio</title>
+
+<!-- SEO -->
+<meta name="description" content="Mudit Ahlawat — brand content, short films and 3D visuals for startups, studios and agencies. Head of Video Production at TEDxAshoka 2026. 130K+ views. Available Summer 2026.">
+<meta name="author" content="Mudit Ahlawat">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (LinkedIn, WhatsApp, iMessage, Slack previews) -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://muditahlawat.in">
+<meta property="og:title"       content="Mudit Ahlawat | Creative Portfolio">
+<meta property="og:description" content="Brand content, short films and 3D visuals for startups, studios and agencies. Available for Summer 2026.">
+<meta property="og:image"       content="https://muditahlawat.in/img/hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Mudit Ahlawat | Creative Portfolio">
+<meta name="twitter:description" content="Brand content, short films and 3D visuals for startups, studios and agencies.">
+<meta name="twitter:image"       content="https://muditahlawat.in/img/hero.jpg">
 
 <script>
 
@@ -20,7 +40,7 @@ const LOGOS = {
 };
 
 /* ── PROJECTS ───────────────────────────────────────────────────────
-   Each object here drives BOTH the filmstrip AND the work grid.
+   Each object here drives both the carousel AND the work grid.
    Fields:
      thumb      : path to your image (put files in /thumbs/)
      tag        : category label shown on the card
@@ -55,7 +75,7 @@ const PROJECTS = [
     contrib: "Concept, shoot and edit | solo",
     desc:    "One-day turnaround reel conceived, shot, and edited end-to-end for a club recruitment push.",
     logo:    "bclub",
-    link:    "https://www.instagram.com/ashokabusinessclub/reel/DC2GaCftWkP/",
+    link:    "https://www.instagram.com/ashokabusinessclub/reel/DVqp4aokhaJ/",
     caseStudy: {
       brief:  "Create a fast, social-native reel to drive applications for the club.",
       role:   "Wrote the concept, handled production solo, and executed the final cut for Instagram.",
@@ -69,7 +89,7 @@ const PROJECTS = [
     contrib: "Creative direction and art direction",
     desc:    "Visual system, graphics, and product shoot direction for pop-up events and merch drops.",
     logo:    "tjc",
-    link:    "#",
+    link:    "https://www.instagram.com/thejerseycollective_/",
   },
   {
     thumb:   "thumbs/humaine-thumb.jpg",
@@ -78,7 +98,7 @@ const PROJECTS = [
     contrib: "Co-directed, shot and edited",
     desc:    "Futuristic concept short film produced under BAD Productions with zero external budget.",
     logo:    "bad",
-    link:    "https://www.youtube.com/watch?v=HqmPBNmKEhc",
+    link:    "https://www.youtube.com/watch?v=GcCMzl7e1dE",
     caseStudy: {
       brief:  "Build a grounded sci-fi proof-of-concept film on a zero budget.",
       role:   "Co-led direction, cinematography and post-production as part of a small core team.",
@@ -92,7 +112,7 @@ const PROJECTS = [
     contrib: "Director of photography",
     desc:    "Cinematography on an ongoing narrative series | visual language, shot design, and on-set operation.",
     logo:    "hyst",
-    link:    "#",
+    link:    "https://www.youtube.com/watch?v=BmpywBtQ_To&t=21s&pp=ygUSaGF2ZSB5b3Ugc2VlbiB0YXJh0gcJCcUKAYcqIYzv",
   },
   {
     thumb:   "thumbs/apple-thumb.jpg",
@@ -101,7 +121,7 @@ const PROJECTS = [
     contrib: "3D modelled, lit and rendered",
     desc:    "Hard surface modeling and product lighting exercise in Blender with photorealistic rendering.",
     logo:    null,
-    link:    "https://www.instagram.com/mudit_main/reel/C4E3biKvjqd/",
+    link:    "https://www.instagram.com/mudit_main/reel/C8MBJ7wIa4Q/",
   },
   {
     thumb:   "thumbs/3d-thumb.jpg",
@@ -110,7 +130,7 @@ const PROJECTS = [
     contrib: "Mechanical asset modeling and lighting",
     desc:    "Mechanical asset experiments in Blender | clean topology, custom shading, and moody key lighting.",
     logo:    null,
-    link:    "https://www.instagram.com/mudit_main/reel/C61VH76viEY/",
+    link:    "https://www.instagram.com/offbeat_au/reel/DNSQzUkvuK_/",
   },
   {
     thumb:   "thumbs/dr2-thumb.jpg",
@@ -119,7 +139,7 @@ const PROJECTS = [
     contrib: "Direction, cinematography and edit",
     desc:    "Character-driven short film exploring themes of connection and memory with a minimal cast and locations.",
     logo:    null,
-    link:    "https://www.youtube.com/watch?v=uCRqQVYkFnI",
+    link:    "https://www.youtube.com/watch?v=Ndr_bWrjQYc&t=2s&pp=0gcJCcUKAYcqIYzv",
   },
 ];
 
@@ -184,14 +204,6 @@ const PROJECTS = [
 :root {
   --fs-cap:10px; --fs-body:16px; --fs-h3:26px; --fs-h2:42px;
   --fs-h1:clamp(42px,6.5vw,68px); --sidebar-w:200px; --gutter:72px;
-  /* ── FILMSTRIP FRAME SIZE ─────────────────────────────────────
-     Adjust --film-thumb-w and --film-thumb-h until your thumbnails
-     sit neatly inside the white frames of your filmstrip image.
-     ────────────────────────────────────────────────────────────*/
-  --film-height:160px;
-  --film-thumb-w:240px;
-  --film-thumb-h:135px;
-  --film-thumb-gap:12px;
 }
 /* Prevent horizontal scroll caused by full-bleed negative-margin elements.
    Safe: all positioned elements use position:fixed (not sticky), so they
@@ -231,8 +243,7 @@ a { text-decoration:none; color:inherit; }
   display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;
   transition:background-color 300ms ease,border-color 200ms ease !important; }
 .theme-toggle:hover { border-color:var(--accent); }
-.toggle-icon { transition:transform 300ms ease,opacity 150ms ease !important; }
-.theme-toggle.spinning .toggle-icon { transform:rotate(180deg); opacity:0; }
+.toggle-icon { transition:transform 300ms ease,opacity 150ms ease; }
 .shell { display:flex; min-height:100vh; }
 .sidebar { position:fixed; top:0; left:0; width:var(--sidebar-w); height:100vh;
   display:flex; flex-direction:column; justify-content:space-between;
@@ -289,7 +300,7 @@ a { text-decoration:none; color:inherit; }
 .btn-ghost { font-family:'IBM Plex Mono',monospace; font-size:var(--fs-cap); letter-spacing:2px;
   text-transform:uppercase; padding:13px 26px; cursor:pointer; border:1px solid var(--border);
   color:var(--text-secondary); background:none; border-radius:100px; }
-.btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); background:rgba(201,185,155,0.10); }
 @keyframes up { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:none;} }
 
 
@@ -343,39 +354,6 @@ a { text-decoration:none; color:inherit; }
 }
 .hero-eyebrow,.hero-name,.avail-badge,.hero-position,
 .hero-primary-cta,.hero-secondary-cta { position:relative; z-index:1; }
-.filmstrip-wrap { z-index:1; }
-
-/* FILMSTRIP */
-.filmstrip-wrap {
-  position:absolute; bottom:0; left:0; right:0;
-  height:var(--film-height); overflow:hidden;
-  border-top:1px solid var(--border);
-  display:flex; align-items:center;
-}
-.filmstrip-wrap::before,.filmstrip-wrap::after {
-  content:''; position:absolute; top:0; bottom:0;
-  width:120px; z-index:3; pointer-events:none;
-}
-.filmstrip-wrap::before { left:0;  background:linear-gradient(to right,var(--bg-primary),transparent); }
-.filmstrip-wrap::after  { right:0; background:linear-gradient(to left, var(--bg-primary),transparent); }
-.filmstrip-track {
-  display:flex; align-items:center; height:100%;
-  width:max-content; gap:var(--film-thumb-gap);
-  padding:0 var(--film-thumb-gap);
-  animation:film-scroll 30s linear infinite;
-  will-change:transform;
-}
-.filmstrip-track:hover { animation-play-state:paused; cursor:pointer; }
-@keyframes film-scroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
-.film-thumb-wrap {
-  flex-shrink:0;
-  width:var(--film-thumb-w); height:var(--film-thumb-h);
-  border:1px solid var(--accent);
-  overflow:hidden; position:relative;
-  opacity:0.75; transition:opacity 0.3s;
-}
-.film-thumb-wrap:hover { opacity:1; }
-.film-thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
 
 /* TRUST */
 #trust { min-height:auto; padding:48px var(--gutter); justify-content:center;
@@ -491,7 +469,7 @@ a { text-decoration:none; color:inherit; }
 .pill-dot { width:6px; height:6px; border-radius:50%; background:var(--text-secondary); opacity:0.4; cursor:pointer; }
 .pill-dot.active { background:var(--accent); opacity:1; width:20px; border-radius:10px; }
 @media (max-width:768px) {
-  :root { --sidebar-w:0px; --gutter:28px; --film-height:120px; --film-thumb-w:180px; --film-thumb-h:100px; --film-thumb-gap:8px; }
+  :root { --sidebar-w:0px; --gutter:28px; }
   .sidebar { display:none; } .main { margin-left:0; border-left:none; }
   .section { padding:60px var(--gutter) 80px; } .pill-nav { display:flex; }
   .stats-grid { grid-template-columns:1fr; }
@@ -735,7 +713,7 @@ a { text-decoration:none; color:inherit; }
       <div class="hero-eyebrow">3D · Video · Visual Creative</div>
       <h1 class="hero-name">Mudit<br><em>Ahlawat</em></h1>
       <div class="avail-badge"><span class="avail-dot"></span>Available for Summer 2026</div>
-      <p class="hero-position">I make brand content, short films, and 3D visuals for startups, studios, and agencies | perform.</p>
+      <p class="hero-position">I make brand content, short films, and 3D visuals for startups, studios, and agencies | built to perform.</p>
       <div class="hero-primary-cta">
         <button class="btn-pill" onclick="goto('work')"><span>→ View selected work</span></button>
       </div>
@@ -968,21 +946,6 @@ document.querySelectorAll('[data-logo]').forEach(function(el) {
 });
 
 // ═══════════════════════════════════════════════════════
-// 2. Filmstrip
-// ═══════════════════════════════════════════════════════
-(function() {
-  var track = document.getElementById('filmstripTrack');
-  if (!track) return;
-  var all = PROJECTS.concat(PROJECTS);
-  all.forEach(function(p) {
-    var wrap = document.createElement('div');
-    wrap.className = 'film-thumb-wrap';
-    var img = document.createElement('img');
-    img.src = p.thumb; img.alt = p.title; img.loading = 'lazy';
-    wrap.appendChild(img);
-    track.appendChild(wrap);
-  });
-})();
 
 // ═══════════════════════════════════════════════════════
 // 3. Magnetic Hero
@@ -1282,15 +1245,28 @@ function getTheme() { return document.documentElement.getAttribute('data-theme')
 function setIcon(t) { if (icon) icon.textContent = t === 'dark' ? '☀' : '☾'; }
 setIcon(getTheme());
 if (toggle) toggle.addEventListener('click', function() {
-  toggle.classList.add('spinning');
+  if (icon) { icon.style.transform = 'rotate(180deg)'; icon.style.opacity = '0'; }
   setTimeout(function() {
     var next = getTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     setIcon(next);
-    toggle.classList.remove('spinning');
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var base = max > 0 ? (window.scrollY / max) * 360 : 0;
+    if (icon) { icon.style.opacity = '1'; icon.style.transform = 'rotate(' + base + 'deg)'; }
   }, 150);
 });
+
+// ─── Sun rotation on scroll ─────────────────────────────
+(function() {
+  var deg = 0;
+  window.addEventListener('scroll', function() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    deg = (window.scrollY / max) * 360;
+    if (icon) icon.style.transform = 'rotate(' + deg + 'deg)';
+  }, { passive: true });
+})();
 
 // ═══════════════════════════════════════════════════════
 // 8. Scroll — reveal + active nav
